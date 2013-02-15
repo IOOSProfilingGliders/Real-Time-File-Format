@@ -12,6 +12,7 @@
     <attribute name="creator_email" value="drudnick@ucsd.edu" />
     <attribute name="institution" value="Scripps Institution of Oceanography" />
     <attribute name="date_created" value="11-Dec-2012 10:19:50" />
+    <attribute name="featureType" value="trajectory" />
     <variable name="trajectory" shape="name_strlen" type="char">
         <attribute name="long_name" value="trajectory_name" />
         <attribute name="cf_role" value="trajectory_id" />
@@ -21,6 +22,7 @@
         <attribute name="long_name" value="time" />
         <attribute name="units" value="seconds since 1970-01-01 00:00:00 UTC" />
         <attribute name="_FillValue" type="double" value="NaN" />
+        <attribute name="ancillary_variables" value="time_qc" />
     </variable>
     <variable name="time_qc" shape="time" type="byte">
         <attribute name="_Unsigned" value="true" />
@@ -28,12 +30,14 @@
         <attribute name="_FillValue" type="short" value="-1" />
         <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
         <attribute name="flag_meanings" value="Gps_Good Gps_Day_Problem Gps_Repeat Gps_Backward Gps_Too_Fast_On_Surface Gps_Too_Soon Gps_Too_Far Gps_Bad_HDOP Gps_Bad_Status Gps_No_Surfacing " />
+        <attribute name="standard_name" value="time status_flag" />
     </variable>
     <variable name="lat" shape="time" type="double">
         <attribute name="standard_name" value="latitude" />
         <attribute name="long_name" value="latitude" />
         <attribute name="units" value="degree_north" />
         <attribute name="_FillValue" type="double" value="NaN" />
+        <attribute name="ancillary_variables" value="lat_qc" />
     </variable>
     <variable name="lat_qc" shape="time" type="byte">
         <attribute name="_Unsigned" value="true" />
@@ -41,12 +45,14 @@
         <attribute name="_FillValue" type="short" value="-1" />
         <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
         <attribute name="flag_meanings" value="Gps_Good Gps_Day_Problem Gps_Repeat Gps_Backward Gps_Too_Fast_On_Surface Gps_Too_Soon Gps_Too_Far Gps_Bad_HDOP Gps_Bad_Status Gps_No_Surfacing " />
+        <attribute name="standard_name" value="latitude status_flag" />
     </variable>
     <variable name="lon" shape="time" type="double">
         <attribute name="standard_name" value="longitude" />
         <attribute name="long_name" value="longitude" />
         <attribute name="units" value="degree_east" />
         <attribute name="_FillValue" type="double" value="NaN" />
+        <attribute name="ancillary_variables" value="lon_qc" />
     </variable>
     <variable name="lon_qc" shape="time" type="byte">
         <attribute name="_Unsigned" value="true" />
@@ -54,27 +60,32 @@
         <attribute name="_FillValue" type="short" value="-1" />
         <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
         <attribute name="flag_meanings" value="Gps_Good Gps_Day_Problem Gps_Repeat Gps_Backward Gps_Too_Fast_On_Surface Gps_Too_Soon Gps_Too_Far Gps_Bad_HDOP Gps_Bad_Status Gps_No_Surfacing " />
+        <attribute name="standard_name" value="longitude status_flag" />
     </variable>
     <variable name="pressure" shape="time" type="float">
         <attribute name="standard_name" value="sea_water_pressure" />
         <attribute name="long_name" value="sea_water_pressure" />
         <attribute name="units" value="dbar" />
         <attribute name="positive" value="down" />
+        <attribute name="coordinates" value="lon lat depth time" />
     </variable>
     <variable name="temperature" shape="time" type="float">
         <attribute name="standard_name" value="sea_water_temperature" />
         <attribute name="long_name" value="sea_water_temperature" />
         <attribute name="units" value="Celsius" />
+        <attribute name="coordinates" value="lon lat depth time" />
     </variable>
     <variable name="salinity" shape="time" type="float">
         <attribute name="standard_name" value="sea_water_practical_salinity" />
         <attribute name="long_name" value="sea_water_practical_salinity" />
-        <attribute name="units" value="1e3" />
+        <attribute name="units" value="1e-3" />
+        <attribute name="coordinates" value="lon lat depth time" />
     </variable>
     <variable name="conductivity" shape="time" type="float">
         <attribute name="standard_name" value="sea_water_electrical_conductivity" />
         <attribute name="long_name" value="sea_water_electrical_conductivity" />
         <attribute name="units" value="S m-1" />
+        <attribute name="coordinates" value="lon lat depth time" />
     </variable>
     <variable name="depth" shape="time" type="float">
         <attribute name="standard_name" value="depth" />
@@ -83,5 +94,3 @@
         <attribute name="positive" value="down" />
     </variable>
 </netcdf>
-
-
