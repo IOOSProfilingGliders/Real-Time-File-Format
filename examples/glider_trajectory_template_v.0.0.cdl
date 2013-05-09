@@ -72,10 +72,9 @@ variables:
 	int segment_id(time) ;
 		segment_id:_FillValue = -2147483647 ;
         segment_id:comment = "Sequential segment number for the trajectory.  A segment is defined the collection of profiles contained in the trajectory" ;
-		segment_id:standard_name = "profile_id" ;
+		segment_id:long_name = "Segment ID" ;
 		segment_id:valid_min = 1 ;
 		segment_id:valid_max = 999 ;
-		segment_id:segment_id_name = "Segment Number" ;
 		segment_id:observation_type = "calculated" ;
         segment_id:ancillary_variables = "platform profile_id trajectory" ;
         segment_id:platform = "platform" ;
@@ -84,10 +83,9 @@ variables:
 	int profile_id(time) ;
 		profile_id:_FillValue = -2147483647 ;
         profile_id:comment = "Sequential profile number contained in the trajectory.  A profile is defined a single dive or climb" ;
-		profile_id:standard_name = "profile_id" ;
+		profile_id:long_name = "Profile ID" ;
 		profile_id:valid_min = 1 ;
 		profile_id:valid_max = 999 ;
-		profile_id:profile_id_name = "Profile Number" ;
 		profile_id:observation_type = "calculated" ;
         profile_id:ancillary_variables = "platform segment_id trajectory" ;
         profile_id:platform = "platform" ;
