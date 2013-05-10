@@ -5,7 +5,6 @@ dimensions:
 variables:
 	int trajectory(trajectory) ;
 		trajectory:cf_role = "trajectory_id" ;
-		trajectory:coordinates = "trajectory" ;
 		trajectory:long_name = "Trajectory Name" ;
 	double time(time) ;
 		time:axis = "T" ;

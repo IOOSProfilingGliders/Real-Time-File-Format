@@ -52,7 +52,6 @@
   <attribute name="title" value="Slocum Glider Dataset" />
   <variable name="trajectory" shape="trajectory" type="int">
     <attribute name="cf_role" value="trajectory_id" />
-    <attribute name="coordinates" value="trajectory" />
     <attribute name="long_name" value="Trajectory Name" />
   </variable>
   <variable name="time" shape="time" type="double">
