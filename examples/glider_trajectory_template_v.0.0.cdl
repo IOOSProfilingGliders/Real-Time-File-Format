@@ -5,7 +5,7 @@ dimensions:
 variables:
 	int trajectory(trajectory) ;
 		trajectory:cf_role = "trajectory_id" ;
-		trajectory:long_name = "Trajectory Name" ;
+		trajectory:long_name = "Unique identifier for each trajectory feature instance" ;
 	double time(time) ;
 		time:axis = "T" ;
 		time:calendar = "gregorian" ;
