@@ -5,6 +5,7 @@
   <attribute name="Conventions" value="CF-1.6" />
   <attribute name="Metadata_Conventions" value="Unidata Dataset Discovery v1.0" />
   <attribute name="acknowledgment" value="" />
+  <attribute name="cdl_template_version" value="IOOS_Glider_NetCDF_Trajectory_Template_v0.0" />
   <attribute name="cdm_data_type" value="Trajectory" />
   <attribute name="comment" value="" />
   <attribute name="contributor_name" value="Scott Glenn, Oscar Schofield, John Kerfoot" />
@@ -16,7 +17,6 @@
   <attribute name="date_issued" value="2013-05-08 14:45 UTC" />
   <attribute name="date_modified" value="2013-05-08 14:45 UTC" />
   <attribute name="featureType" value="trajectory" />
-  <attribute name="netcdf_template_version" value="IOOS_Glider_NetCDF_Trajectory_Template_v1.0" />
   <attribute name="geospatial_lat_max" type="double" value="-15.88833" />
   <attribute name="geospatial_lat_min" type="double" value="-15.9445416666667" />
   <attribute name="geospatial_lat_resolution" value="point" />

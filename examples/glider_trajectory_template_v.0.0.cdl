@@ -240,6 +240,7 @@ variables:
 		:Conventions = "CF-1.6" ;
 		:Metadata_Conventions = "Unidata Dataset Discovery v1.0" ;
 		:acknowledgment = "" ;
+        :cdl_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" ;
 		:cdm_data_type = "Trajectory" ;
 		:comment = "" ;
 		:contributor_name = "Scott Glenn, Oscar Schofield, John Kerfoot" ;
@@ -251,7 +252,6 @@ variables:
 		:date_issued = "2013-05-08 14:45 UTC" ;
 		:date_modified = "2013-05-08 14:45 UTC" ;
 		:featureType = "trajectory" ;
-		:netcdf_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v1.0" ;
 		:geospatial_lat_max = -15.88833 ;
 		:geospatial_lat_min = -15.9445416666667 ;
 		:geospatial_lat_resolution = "point" ;
