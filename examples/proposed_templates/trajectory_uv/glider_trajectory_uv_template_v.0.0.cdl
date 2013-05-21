@@ -14,6 +14,13 @@ variables:
 		time:standard_name = "time" ;
 		time:long_name = "Time" ;
 		time:observation_type = "measured" ;
+	double time_avg(time_avg) ;
+		time_avg:axis = "T" ;
+		time_avg:calendar = "gregorian" ;
+		time_avg:units = "seconds since 1970-01-01 00:00:00 UTC" ;
+		time_avg:standard_name = "time" ;
+		time_avg:long_name = "Time corresponding to midpoint of segment" ;
+		time_avg:observation_type = "measured" ;
 	int segment_id(time) ;
 		segment_id:_FillValue = -2147483647 ;
 		segment_id:comment = "Sequential segment number for the trajectory.  A segment is defined the collection of profiles contained in the trajectory" ;
