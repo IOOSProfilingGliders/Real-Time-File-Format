@@ -112,7 +112,7 @@ profile_id.ancillary_variables = "platform segment_id trajectory" ;
 profile_id.platform = "platform" ;  # TODO: Necessary?
 
 # Container Variables
-platform =    nc.createVariable('platform','i4')
+platform = nc.createVariable('platform','i4')
 platform.type = "slocum" # TODO: Put controlled vocabulary on the wiki to ref.  {slocum, spray, seaglider}
 platform.id = "ru29" ;
 platform.wmo_id = "ru29" ;
@@ -128,7 +128,7 @@ instrument_ctd.long_name = "Seabird SBD 41CP Conductivity, Temperature, Depth Se
 # TODO: Look into the proper usage of ancillary_variables.  I think there is a restriction on the axes for ancillary variables that we are abusing.
 
 # Geophysical Variables (time)
-depth = nc.createVariable('depth','f8',('time',))
+depth = nc.createVariable('depth','f8',('time',),fill_value=9.96920996838687e+36)
 #depth._FillValue = 9.96920996838687e+36 
 depth.axis = "Z" 
 depth.units = "meters" 
@@ -143,17 +143,16 @@ depth.ancillary_variables = "depth_qc instrument_ctd"
 depth.platform = "platform" 
 depth.instrument = "instrument_ctd" 
 
-byte depth_qc(time) 
-depth_qc = nc.createVariable('depth','f8',('time',))
-depth_qc._FillValue = -127b 
-depth_qc.long_name = "depth Quality" 
+
+depth_qc = nc.createVariable('depth_qc','S1',('time',),fill_value=-127b)
+depth_qc.long_name = "depth Quality Flag" 
 depth_qc.standard_name = "depth status_flag" 
 depth_qc.flag_meanings = "" 
 depth_qc.valid_range = 0., 128. 
 depth_qc.flag_values = "" 
 depth_qc.ancillary_variables = "depth instrument_ctd" 
-double lat(time) 
-lat._FillValue = 9.96920996838687e+36 
+
+lat = nc.createVariable('lat','f8', ('time',),fill_value=9.96920996838687e+36)
 lat.axis = "Y" 
 lat.units = "degrees_north" 
 lat.standard_name = "latitude" 
@@ -163,16 +162,16 @@ lat.long_name = "Latitude"
 lat.observation_type = "measured" 
 lat.ancillary_variables = "lat_qc" 
 lat.platform = "platform" 
-byte lat_qc(time) 
-lat_qc._FillValue = -127b 
+
+nc.createVariable('lat_qc','S1',('time',),fill_value=-127b)
 lat_qc.long_name = "lat Quality" 
 lat_qc.standard_name = "lat status_flag" 
 lat_qc.flag_meanings = "" 
 lat_qc.valid_range = 0., 128. 
 lat_qc.flag_values = "" 
 lat_qc.ancillary_variables = "lat" 
-double lon(time) 
-lon._FillValue = 9.96920996838687e+36 
+
+lon = nc.createVariable('lon','f8', ('time',),fill_value=9.96920996838687e+36)
 lon.axis = "X" 
 lon.units = "degrees_east" 
 lon.standard_name = "longitude" 
@@ -182,16 +181,16 @@ lon.long_name = "Longitude"
 lon.observation_type = "measured" 
 lon.ancillary_variables = "lon" 
 lon.platform = "platform" 
-byte lon_qc(time) 
-lon_qc._FillValue = -127b 
-lon_qc.long_name = "lon Quality" 
+
+nc.createVariable('lon_qc','S1',('time',),fill_value=-127b) 
+lon_qc.long_name = "lon Quality Flag" 
 lon_qc.standard_name = "lon status_flag" 
 lon_qc.flag_meanings = "" 
 lon_qc.valid_range = 0., 128. 
 lon_qc.flag_values = "" 
 lon_qc.ancillary_variables = "lon" 
-double pressure(time) 
-pressure._FillValue = 9.96920996838687e+36 
+
+pressure = nc.createVariable('pressure','f8', ('time',),fill_value=9.96920996838687e+36)
 pressure.axis = "Z" 
 pressure.units = "dbar" 
 pressure.standard_name = "pressure" 
@@ -204,15 +203,16 @@ pressure.observation_type = "measured"
 pressure.ancillary_variables = "pressure_qc instrument_ctd" 
 pressure.platform = "platform" 
 pressure.instrument = "instrument_ctd" 
-byte pressure_qc(time) 
-pressure_qc._FillValue = -127b 
+
+nc.createVariable('pressure_qc','S1',('time',),fill_value=-127b) 
 pressure_qc.long_name = "pressure Quality" 
 pressure_qc.standard_name = "pressure status_flag" 
 pressure_qc.flag_meanings = "" 
 pressure_qc.valid_range = 0., 128. 
 pressure_qc.flag_values = "" 
 pressure_qc.ancillary_variables = "pressure instrument_ctd" 
-double conductivity(time) 
+
+pressure = nc.createVariable('conductivity','f8', ('time',),fill_value=9.96920996838687e+36)
 conductivity._FillValue = 9.96920996838687e+36 
 conductivity.units = "S m-1" 
 conductivity.standard_name = "sea_water_electrical_conductivity" 
@@ -224,6 +224,8 @@ conductivity.coordinates = "lon lat depth time"
 conductivity.ancillary_variables = "conductivity instrument_ctd" 
 conductivity.platform = "platform" 
 conductivity.instrument = "instrument_ctd" 
+
+nc.createVariable('lon_qc','S1',('time',),fill_value=-127b) 
 byte conductivity_qc(time) 
 conductivity_qc._FillValue = -127b 
 conductivity_qc.long_name = "conductivity Quality" 
@@ -231,6 +233,8 @@ conductivity_qc.standard_name = "conductivity status_flag"
 conductivity_qc.flag_meanings = "" 
 conductivity_qc.valid_range = 0., 128. 
 conductivity_qc.flag_values = "" 
+
+pressure = nc.createVariable('pressure','f8', ('time',),fill_value=9.96920996838687e+36)
 double density(time) 
 density._FillValue = 9.96920996838687e+36 
 density.units = "kg m-3" 
@@ -243,6 +247,8 @@ density.coordinates = "lon lat depth time"
 density.ancillary_variables = "density_qc instrument_ctd" 
 density.platform = "platform" 
 density.instrument = "instrument_ctd" 
+
+nc.createVariable('lon_qc','S1',('time',),fill_value=-127b) 
 byte density_qc(time) 
 density_qc._FillValue = -127b 
 density_qc.long_name = "density Quality" 
@@ -251,6 +257,8 @@ density_qc.flag_meanings = ""
 density_qc.valid_range = 0., 128. 
 density_qc.flag_values = "" 
 density_qc.ancillary_variables = "density instrument_ctd" 
+
+pressure = nc.createVariable('pressure','f8', ('time',),fill_value=9.96920996838687e+36)
 double salinity(time) 
 salinity._FillValue = 9.96920996838687e+36 
 salinity.units = "1e-3" 
@@ -263,6 +271,8 @@ salinity.coordinates = "lon lat depth time"
 salinity.ancillary_variables = "salinity_qc instrument_ctd" 
 salinity.platform = "platform" 
 salinity.instrument = "instrument_ctd" 
+
+nc.createVariable('lon_qc','S1',('time',),fill_value=-127b) 
 byte salinity_qc(time) 
 salinity_qc._FillValue = -127b 
 salinity_qc.long_name = "salinity Quality" 
@@ -272,6 +282,7 @@ salinity_qc.valid_range = 0., 128.
 salinity_qc.flag_values = "" 
 salinity_qc.ancillary_variables = "salinity instrument_ctd" 
 
+pressure = nc.createVariable('pressure','f8', ('time',),fill_value=9.96920996838687e+36)
 double temperature(time) 
 temperature._FillValue = 9.96920996838687e+36 
 temperature.units = "Celsius" 
@@ -285,6 +296,7 @@ temperature.ancillary_variables = "temperature_qc instrument_ctd"
 temperature.platform = "platform" 
 temperature.instrument = "instrument_ctd" 
 
+nc.createVariable('lon_qc','S1',('time',),fill_value=-127b) 
 byte temperature_qc(time) 
 temperature_qc._FillValue = -127b 
 temperature_qc.long_name = "temperature Quality" 
@@ -296,7 +308,7 @@ temperature_qc.ancillary_variables = "temperature instrument_ctd"
 
 
 # Depth/Time averaged estiamtes per segment
-double u(trajectory) 
+double u(time_avg) 
 u._FillValue = 9.96920996838687e+36 
 u.units = "m s-1" 
 u.standard_name = "eastward_sea_water_velocity" 
