@@ -1,11 +1,11 @@
-# 
+# Script to create example glider trajectory file.
 
 from datetime import datetime, timedelta
 from netCDF4 import num2date, date2num
 from netCDF4 import Dataset
 import time as t
 
-nc = Dataset('glider_trajectory_v.0.0.nc', 'w', format='NETCDF4_CLASSIC')
+nc = Dataset('../examples/trajectory/glider_trajectory_v.0.1.nc', 'w', format='NETCDF4_CLASSIC')
 
 # Dimensions
 time =    nc.createDimension('time', None)
@@ -16,8 +16,7 @@ time_avg =    nc.createDimension('time_avg',1)
 nc.Conventions = "CF-1.6" 
 nc.Metadata_Conventions = "Unidata Dataset Discovery v1.0" # TODO: Check the ACDD docs.  
 nc.acknowledgment = "This deployment partially supported by ..." # 
-nc.file_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" # TODO Check comparison spreadsheet
-#nc.cdl_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" 
+#nc.cdl_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" changed to file_version
 nc.cdm_data_type = "Trajectory" 
 nc.comment = "" 
 nc.contributor_name = "Scott Glenn, Oscar Schofield, John Kerfoot" 
@@ -29,6 +28,7 @@ nc.date_created = "2013-05-08 14:45 UTC"
 nc.date_issued = "2013-05-08 14:45 UTC" 
 nc.date_modified = "2013-05-08 14:45 UTC" 
 nc.featureType = "trajectory" 
+nc.file_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" # TODO Check comparison spreadsheet
 nc.geospatial_lat_max = -15.88833 
 nc.geospatial_lat_min = -15.9445416666667 
 nc.geospatial_lat_resolution = "point" 
@@ -39,7 +39,7 @@ nc.geospatial_lon_resolution = "point"
 nc.geospatial_lon_units = "degrees_east" 
 nc.geospatial_vertical_max = 987.26 
 nc.geospatial_vertical_min = 0. 
-nc.geospatial_vertical_positive = "down" 
+nc.geospatial_vertical_positive = "down"  # TODO: Better represented as a variable attribute for depth?
 nc.geospatial_vertical_resolution = "point" 
 nc.geospatial_vertical_units = "meters" 
 nc.history = "Created on " + t.ctime(t.time())
@@ -124,7 +124,8 @@ instrument_ctd = nc.createVariable('instrument_ctd','i4')
 instrument_ctd.comment = "Unpumped CTD with a nominal sampling rate of 1Hz." ;
 instrument_ctd.serial_number = -1 ;
 instrument_ctd.long_name = "Seabird SBD 41CP Conductivity, Temperature, Depth Sensor." ;
-instrument_ctd.ancillary_variables = "platform temperature temperature_qc salinity salinity_qc pressure pressure_qc depth depth_qc conductivity conductivity_qc" ;
+#instrument_ctd.ancillary_variables = "platform temperature temperature_qc salinity salinity_qc pressure pressure_qc depth depth_qc conductivity conductivity_qc" ;
+# TODO: Look into the proper usage of ancillary_variables.  I think there is a restriction on the axes for ancillary variables that we are abusing.
 
 # Geophysical Variables (time)
 depth = nc.createVariable('depth','f8',('time',))
@@ -143,7 +144,7 @@ depth.platform = "platform"
 depth.instrument = "instrument_ctd" 
 
 byte depth_qc(time) 
-depth = nc.createVariable('depth','f8',('time',))
+depth_qc = nc.createVariable('depth','f8',('time',))
 depth_qc._FillValue = -127b 
 depth_qc.long_name = "depth Quality" 
 depth_qc.standard_name = "depth status_flag" 
