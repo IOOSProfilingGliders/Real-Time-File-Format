@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2"
+  location="http://marine.rutgers.edu/~kerfoot/pub/slocum/nc/ru26d-182-20110108T113606.nc">
+  <dimension name="name_strlen" length="25"/>
+  <dimension name="time" length="13064"/>
+  <attribute name="Conventions" value="CF-1.6"/>
+  <attribute name="Metadata_Conventions" value="Unidata Dataset Discovery v1.0"/>
+  <attribute name="acknowledgement" value="NSF"/>
+  <attribute name="cdm_data_type" value="Trajectory"/>
+  <attribute name="comment" value=""/>
+  <attribute name="contributor_name" value="Scott Glenn, Oscar Schofield, John Kerfoot"/>
+  <attribute name="contributor_role"
+    value="Principal Investigator, Principal Investigator, Data Manager"/>
+  <attribute name="creator_email" value="kerfoot@marine.rutgers.edu"/>
+  <attribute name="creator_name" value="John Kerfoot"/>
+  <attribute name="creator_url" value="http://marine.rutgers.edu/cool/auvs/?did=186"/>
+  <attribute name="date_created" value="2013-02-27 10:13 UTC"/>
+  <attribute name="date_issued" value="2013-02-27 10:13 UTC"/>
+  <attribute name="date_modified" value="2013-02-27 10:13 UTC"/>
+  <attribute name="featureType" value="trajectory" />
+  <attribute name="geospatial_lat_max" type="double" value="-74.8738"/>
+  <attribute name="geospatial_lat_min" type="double" value="-74.8957"/>
+  <attribute name="geospatial_lat_resolution" value="point"/>
+  <attribute name="geospatial_lat_units" value="degrees_north"/>
+  <attribute name="geospatial_lon_max" type="double" value="173.3388"/>
+  <attribute name="geospatial_lon_min" type="double" value="173.2706"/>
+  <attribute name="geospatial_lon_resolution" value="point"/>
+  <attribute name="geospatial_lon_units" value="degrees_east"/>
+  <attribute name="geospatial_vertical_max" type="double" value="470.0"/>
+  <attribute name="geospatial_vertical_min" type="double" value="0.05"/>
+  <attribute name="geospatial_vertical_positive" value="down"/>
+  <attribute name="geospatial_vertical_resolution" value="point"/>
+  <attribute name="geospatial_vertical_units" value="m"/>
+  <attribute name="history" value="Created with Matlab netcdf on 2013-02-27 10:13 UTC"/>
+  <attribute name="id" value="ru26d-182-20110108T113606"/>
+  <attribute name="institution"
+    value="Institute of Marine &amp; Coastal Sciences, Rutgers University"/>
+  <attribute name="keywords"
+    value="Oceans &gt; Ocean Pressure &gt; Water Pressure, Oceans &gt; Ocean Temperature &gt; Water Temperature, Oceans &gt; Salinity/Density &gt; Conductivity, Oceans &gt; Salinity/Density &gt; Density, Oceans &gt; Salinity/Density &gt; Salinity"/>
+  <attribute name="keywords_vocabulary" value="GCMD Science Keywords"/>
+  <attribute name="license" value="This data may be redistributed and used without restriction."/>
+  <attribute name="naming_authority" value="edu.rutgers.marine"/>
+  <attribute name="processing_level" value="Dataset taken from glider native file format"/>
+  <attribute name="project"
+    value="Collaborative Research: Modified Circumpolar Deep Water Intrusions as an Iron Source to the Summer Ross Sea Ecosystem"/>
+  <attribute name="publisher_email" value="kerfoot@marine.rutgers.edu"/>
+  <attribute name="publisher_name" value="John Kerfoot"/>
+  <attribute name="publisher_url" value="http://marine.rutgers.edu/cool/auvs/?did=186"/>
+  <attribute name="sea_name" value="Ross Sea"/>
+  <attribute name="standard_name_vocabulary" value="CF-1.6"/>
+  <attribute name="summary"
+    value="The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990.  Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern.  They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world's oceans.  The Slocum glider was designed and built by Teledyne Webb Research Corporation, Falmouth, MA, USA."/>
+  <attribute name="time_coverage_end" value="2011-01-08 14:55 UTC"/>
+  <attribute name="time_coverage_resolution" value="point"/>
+  <attribute name="time_coverage_start" value="2011-01-08 11:36 UTC"/>
+  <attribute name="title" value="Slocum Glider Dataset"/>
+  <variable name="trajectory" shape="name_strlen" type="char">
+    <attribute name="cf_role" value="trajectory_id"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="long_name" value="Trajectory Name"/>
+  </variable>
+  <variable name="platform" shape="" type="int">
+    <attribute name="long_name" value="Slocum Glider ru26d"/>
+    <attribute name="call_sign" value="ru26d"/>
+    <attribute name="comment" value="Rutgers University Slocum Glider ru26d"/>
+    <attribute name="id" value="ru26d-182"/>
+  </variable>
+  <variable name="time" shape="time" type="double">
+    <attribute name="axis" value="T"/>
+    <attribute name="calendar" value="gregorian"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Time"/>
+    <attribute name="standard_name" value="time"/>
+    <attribute name="units" value="seconds since 1970-01-01 00:00:00 UTC"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="lat" shape="time" type="double">
+    <attribute name="ancillary_variables" value="lat_qc"/>
+    <attribute name="axis" value="Y"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Latitude"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="standard_name" value="latitude"/>
+    <attribute name="units" value="degrees_north"/>
+    <attribute name="valid_max" type="double" value="90.0"/>
+    <attribute name="valid_min" type="double" value="-90.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="lon" shape="time" type="double">
+    <attribute name="ancillary_variables" value="lon_qc"/>
+    <attribute name="axis" value="X"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Longitude"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="standard_name" value="longitude"/>
+    <attribute name="units" value="degrees_east"/>
+    <attribute name="valid_max" type="double" value="180.0"/>
+    <attribute name="valid_min" type="double" value="-180.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="pressure" shape="time" type="double">
+    <attribute name="ancillary_variables" value="pressure_qc"/>
+    <attribute name="axis" value="Z"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Sea Water Pressure"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="positive" value="down"/>
+    <attribute name="reference_datum" value="sea-surface"/>
+    <attribute name="standard_name" value="sea_water_pressure"/>
+    <attribute name="units" value="dbar"/>
+    <attribute name="valid_max" type="double" value="2000.0"/>
+    <attribute name="valid_min" type="double" value="0.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="depth" shape="time" type="double">
+    <attribute name="ancillary_variables" value="depth_qc"/>
+    <attribute name="axis" value="Z"/>
+    <attribute name="comment" value="Calculated from pressure and the mean GPS-measured latitude"/>
+    <remove type="attribute" name="coordinates" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Depth"/>
+    <attribute name="observation_type" value="calculated"/>
+    <attribute name="positive" value="down"/>
+    <attribute name="reference_datum" value="sea-surface"/>
+    <attribute name="standard_name" value="depth"/>
+    <attribute name="units" value="dbar"/>
+    <attribute name="valid_max" type="double" value="2000.0"/>
+    <attribute name="valid_min" type="double" value="0.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="temperature" shape="time" type="double">
+    <attribute name="ancillary_variables" value="temperature_qc"/>
+    <attribute name="coordinates" value="lon lat depth time" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Sea Water Temperature"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="standard_name" value="sea_water_temperature"/>
+    <attribute name="units" value="Celsius"/>
+    <attribute name="valid_max" type="double" value="40.0"/>
+    <attribute name="valid_min" type="double" value="-5.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="conductivity" shape="time" type="double">
+    <attribute name="ancillary_variables" value="conductivity_qc"/>
+    <attribute name="coordinates" value="lon lat depth time" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Sea Water Conductivity"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="standard_name" value="sea_water_electrical_conductivity"/>
+    <attribute name="units" value="S m-1"/>
+    <attribute name="valid_max" type="double" value="10.0"/>
+    <attribute name="valid_min" type="double" value="0.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="salinity" shape="time" type="double">
+    <attribute name="ancillary_variables" value="salinity_qc"/>
+    <attribute name="coordinates" value="lon lat depth time" />
+    <attribute name="_FillValue" type="double" value="-999.0"/>
+    <attribute name="long_name" value="Sea Water Salinity"/>
+    <attribute name="observation_type" value="measured"/>
+    <attribute name="standard_name" value="sea_water_practical_salinity"/>
+    <attribute name="units" value="1e-3"/>
+    <attribute name="valid_max" type="double" value="40.0"/>
+    <attribute name="valid_min" type="double" value="0.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="pressure_qc" shape="time" type="byte">
+    <attribute name="long_name" value="pressure Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="depth_qc" shape="time" type="byte">
+    <attribute name="long_name" value="depth Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="lat_qc" shape="time" type="byte">
+    <attribute name="long_name" value="lat Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="lon_qc" shape="time" type="byte">
+    <attribute name="long_name" value="lon Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="temperature_qc" shape="time" type="byte">
+    <attribute name="long_name" value="temperature Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="conductivity_qc" shape="time" type="byte">
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="long_name" value="conductivity Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+  <variable name="salinity_qc" shape="time" type="byte">
+    <attribute name="long_name" value="salinity Quality"/>
+    <attribute name="_FillValue" type="byte" value="-127"/>
+    <attribute name="valid_range" type="double" value="0.0 2.0"/>
+    <attribute name="flag_values" type="double" value="0.0 1.0"/>
+    <attribute name="flag_meanings" value="measured_value, interpolated_value"/>
+    <attribute name="_ChunkSize" type="int" value="13064"/>
+  </variable>
+</netcdf>
