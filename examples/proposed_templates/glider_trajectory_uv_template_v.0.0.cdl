@@ -1,7 +1,7 @@
 netcdf glider_trajectory_v.0.0 {
 dimensions:
 	trajectory = 1 ;
-    time_avg = 1 ;
+	time_uv = 1 ;
 	time = 1076 ;
 variables:
 	int trajectory(trajectory) ;
@@ -14,13 +14,13 @@ variables:
 		time:standard_name = "time" ;
 		time:long_name = "Time" ;
 		time:observation_type = "measured" ;
-	double time_avg(time_avg) ;
-		time_avg:axis = "T" ;
-		time_avg:calendar = "gregorian" ;
-		time_avg:units = "seconds since 1970-01-01 00:00:00 UTC" ;
-		time_avg:standard_name = "time" ;
-		time_avg:long_name = "Time corresponding to midpoint of segment" ;
-		time_avg:observation_type = "measured" ;
+	double time_uv(time_uv) ;
+		time_uv:axis = "T" ;
+		time_uv:calendar = "gregorian" ;
+		time_uv:units = "seconds since 1970-01-01 00:00:00 UTC" ;
+		time_uv:standard_name = "time" ;
+		time_uv:long_name = "Time corresponding to midpoint of segment" ;
+		time_uv:observation_type = "measured" ;
 	int segment_id(time) ;
 		segment_id:_FillValue = -2147483647 ;
 		segment_id:comment = "Sequential segment number for the trajectory.  A segment is defined the collection of profiles contained in the trajectory" ;
@@ -28,8 +28,8 @@ variables:
 		segment_id:valid_min = 1 ;
 		segment_id:valid_max = 999 ;
 		segment_id:observation_type = "calculated" ;
-		segment_id:ancillary_variables = "slocum profile_id trajectory" ;
-		segment_id:platform = "slocum" ;
+		segment_id:ancillary_variables = "platform profile_id trajectory" ;
+		segment_id:platform = "platform" ;
 	int profile_id(time) ;
 		profile_id:_FillValue = -2147483647 ;
 		profile_id:comment = "Sequential profile number contained in the trajectory.  A profile is defined a single dive or climb" ;
@@ -37,8 +37,8 @@ variables:
 		profile_id:valid_min = 1 ;
 		profile_id:valid_max = 999 ;
 		profile_id:observation_type = "calculated" ;
-		profile_id:ancillary_variables = "slocum segment_id trajectory" ;
-		profile_id:platform = "slocum" ;
+		profile_id:ancillary_variables = "platform segment_id trajectory" ;
+		profile_id:platform = "platform" ;
 	double depth(time) ;
 		depth:_FillValue = 9.96920996838687e+36 ;
 		depth:axis = "Z" ;
@@ -51,7 +51,7 @@ variables:
 		depth:vertical_positive = "down" ;
 		depth:observation_type = "calculated" ;
 		depth:ancillary_variables = "depth_qc instrument_ctd" ;
-		depth:platform = "slocum" ;
+		depth:platform = "platform" ;
 		depth:instrument = "instrument_ctd" ;
 	byte depth_qc(time) ;
 		depth_qc:_FillValue = -127b ;
@@ -71,7 +71,7 @@ variables:
 		lat:long_name = "Latitude" ;
 		lat:observation_type = "measured" ;
 		lat:ancillary_variables = "lat_qc" ;
-		lat:platform = "slocum" ;
+		lat:platform = "platform" ;
 	byte lat_qc(time) ;
 		lat_qc:_FillValue = -127b ;
 		lat_qc:long_name = "lat Quality" ;
@@ -90,7 +90,7 @@ variables:
 		lon:long_name = "Longitude" ;
 		lon:observation_type = "measured" ;
 		lon:ancillary_variables = "lon" ;
-		lon:platform = "slocum" ;
+		lon:platform = "platform" ;
 	byte lon_qc(time) ;
 		lon_qc:_FillValue = -127b ;
 		lon_qc:long_name = "lon Quality" ;
@@ -111,7 +111,7 @@ variables:
 		pressure:vertical_positive = "down" ;
 		pressure:observation_type = "measured" ;
 		pressure:ancillary_variables = "pressure_qc instrument_ctd" ;
-		pressure:platform = "slocum" ;
+		pressure:platform = "platform" ;
 		pressure:instrument = "instrument_ctd" ;
 	byte pressure_qc(time) ;
 		pressure_qc:_FillValue = -127b ;
@@ -131,7 +131,7 @@ variables:
 		conductivity:observation_type = "measured" ;
 		conductivity:coordinates = "lon lat depth time" ;
 		conductivity:ancillary_variables = "conductivity instrument_ctd" ;
-		conductivity:platform = "slocum" ;
+		conductivity:platform = "platform" ;
 		conductivity:instrument = "instrument_ctd" ;
 	byte conductivity_qc(time) ;
 		conductivity_qc:_FillValue = -127b ;
@@ -150,7 +150,7 @@ variables:
 		density:observation_type = "calculated" ;
 		density:coordinates = "lon lat depth time" ;
 		density:ancillary_variables = "density_qc instrument_ctd" ;
-		density:platform = "slocum" ;
+		density:platform = "platform" ;
 		density:instrument = "instrument_ctd" ;
 	byte density_qc(time) ;
 		density_qc:_FillValue = -127b ;
@@ -170,7 +170,7 @@ variables:
 		salinity:observation_type = "calculated" ;
 		salinity:coordinates = "lon lat depth time" ;
 		salinity:ancillary_variables = "salinity_qc instrument_ctd" ;
-		salinity:platform = "slocum" ;
+		salinity:platform = "platform" ;
 		salinity:instrument = "instrument_ctd" ;
 	byte salinity_qc(time) ;
 		salinity_qc:_FillValue = -127b ;
@@ -190,7 +190,7 @@ variables:
 		temperature:observation_type = "measured" ;
 		temperature:coordinates = "lon lat depth time" ;
 		temperature:ancillary_variables = "temperature_qc instrument_ctd" ;
-		temperature:platform = "slocum" ;
+		temperature:platform = "platform" ;
 		temperature:instrument = "instrument_ctd" ;
 	byte temperature_qc(time) ;
 		temperature_qc:_FillValue = -127b ;
@@ -200,7 +200,7 @@ variables:
 		temperature_qc:valid_range = 0., 128. ;
 		temperature_qc:flag_values = "" ;
 		temperature_qc:ancillary_variables = "temperature instrument_ctd" ;
-	double u(time_avg) ;
+	double u(time_uv) ;
 		u:_FillValue = 9.96920996838687e+36 ;
 		u:units = "m s-1" ;
 		u:standard_name = "eastward_sea_water_velocity" ;
@@ -208,15 +208,16 @@ variables:
 		u:valid_max = 3. ;
 		u:long_name = "Eastward Sea Water Velocity" ;
 		u:observation_type = "calculated" ;
-		u:coordinates = "time_avg" ;
-	byte u_qc(time_avg) ;
+		u:coordinates = "time_uv" ;
+		u:platform = "platform" ;
+	byte u_qc(time_uv) ;
 		u_qc:_FillValue = -127b ;
 		u_qc:long_name = "u Quality" ;
 		u_qc:flag_meanings = "" ;
 		u_qc:valid_range = 0., 128. ;
 		u_qc:flag_values = "" ;
 		u_qc:ancillary_variables = "u" ;
-	double v(time_avg) ;
+	double v(time_uv) ;
 		v:_FillValue = 9.96920996838687e+36 ;
 		v:units = "m s-1" ;
 		v:standard_name = "northward_sea_water_velocity" ;
@@ -224,19 +225,21 @@ variables:
 		v:valid_max = 3. ;
 		v:long_name = "Northward Sea Water Velocity" ;
 		v:observation_type = "calculated" ;
-		v:coordinates = "time_avg" ;
-	byte v_qc(time_avg) ;
+		v:coordinates = "time_uv" ;
+		v:platform = "platform" ;
+	byte v_qc(time_uv) ;
 		v_qc:_FillValue = -127b ;
 		v_qc:long_name = "v Quality" ;
 		v_qc:flag_meanings = "" ;
 		v_qc:valid_range = 0., 128. ;
 		v_qc:flag_values = "" ;
 		v_qc:ancillary_variables = "v" ;
-	int slocum ;
-		slocum:wmo_id = "ru29" ;
-		slocum:comment = "Slocum Glider ru29" ;
-		slocum:id = "ru29" ;
-		slocum:long_name = "Slocum Glider ru29" ;
+	int platform ;
+		platform:glider_type = "slocum" ;
+		platform:wmo_id = "ru29" ;
+		platform:comment = "Slocum Glider ru29" ;
+		platform:id = "ru29" ;
+		platform:long_name = "Slocum Glider ru29" ;
 	int instrument_ctd ;
 		instrument_ctd:comment = "Unpumped CTD with a nominal sampling rate of 1Hz." ;
 		instrument_ctd:serial_number = -1 ;
@@ -280,6 +283,7 @@ variables:
 		:license = "This data may be redistributed and used without restriction." ;
 		:metadata_link = "" ;
 		:naming_authority = "edu.rutgers.marine" ;
+		:platform = "platform" ;
 		:processing_level = "Dataset taken from glider native file format" ;
 		:project = "Deployment not project based" ;
 		:publisher_email = "kerfoot@marine.rutgers.edu" ;
