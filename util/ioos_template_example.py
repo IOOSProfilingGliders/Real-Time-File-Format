@@ -10,15 +10,15 @@ nc = Dataset('../examples/trajectory/glider_trajectory_v.0.1.nc', 'w', format='N
 # Dimensions
 time =    nc.createDimension('time', None)
 trajectory =    nc.createDimension('trajectory', 1)
-time_avg =    nc.createDimension('time_avg',1)
+time_uv =    nc.createDimension('time_uv',1)
 
 # Global Attributes
 nc.Conventions = "CF-1.6" 
-nc.Metadata_Conventions = "Unidata Dataset Discovery v1.0" # TODO: Check the ACDD docs.  
+nc.Metadata_Conventions = "Unidata Dataset Discovery v1.0" # TODO: Propose change to ACDD  
 nc.acknowledgment = "This deployment partially supported by ..." # 
 #nc.cdl_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" changed to file_version
 nc.cdm_data_type = "Trajectory" 
-nc.comment = "" 
+nc.comment = "This file was created as an example only.  Data is not to be used for scientific purposes." 
 nc.contributor_name = "Scott Glenn, Oscar Schofield, John Kerfoot" 
 nc.contributor_role = "Principal Investigator, Principal Investigator, Data Manager" 
 nc.creator_email = "kerfoot@marine.rutgers.edu" 
@@ -57,7 +57,7 @@ nc.publisher_name = "John Kerfoot"
 nc.publisher_url = "http://marine.rutgers.edu/cool/auvs" 
 nc.sea_name = "" 
 nc.standard_name_vocabulary = "CF-1.6" # TODO Check CF. Should be CF23 or something similar
-nc.source = 'netCDF4 python module tutorial' # TODO: Check CF for definition and add to wiki
+nc.source = 'netCDF4 python module tutorial' # CF Definition: 
 nc.summary = "The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA." ;
 nc.time_coverage_end = "2013-05-08 07:56 UTC" 
 nc.time_coverage_resolution = "point" 
@@ -74,19 +74,20 @@ times.standard_name = "time"
 times.long_name = "Time" 
 times.observation_type = "measured" 
 
-time_avgs =    nc.createVariable('time_avg','f8',('time_avg',))
-time_avgs.axis = "T" 
-time_avgs.calendar = "gregorian" 
-time_avgs.units = "seconds since 1970-01-01 00:00:00 UTC" 
-time_avgs.standard_name = "time" 
-time_avgs.long_name = "Approximate time midpoint of each segment" 
-time_avgs.observation_type = "estimated" 
+time_uvs = nc.createVariable('time_uv','f8',('time_uv',))
+time_uvs.axis = "T" 
+time_uvs.calendar = "gregorian" 
+time_uvs.units = "seconds since 1970-01-01 00:00:00 UTC" 
+time_uvs.standard_name = "time" 
+time_uvs.long_name = "Approximate time midpoint of each segment" 
+time_uvs.observation_type = "estimated" 
 # TODO: Add cell_methods here or in u, v
 
 
-trajectory_id =    nc.createVariable('trajectory','i4',('trajectory',))
+trajectory_id = nc.createVariable('trajectory','i4',('trajectory',))
 trajectory_id.cf_role = "trajectory_id" 
 trajectory_id.long_name = "Unique identifier for each trajectory feature instance" 
+trajectory_id.comment = "A trajectory can span multiple data files each containing a single segment."
 
 
 # TODO: Investigate fill value behavior for this library.  See below for a comment from the netcdf4 docs
@@ -97,33 +98,38 @@ segment_id.comment = "Sequential segment number within a trajectory. The set of 
 segment_id.long_name = "Segment ID" 
 segment_id.valid_min = 1 
 segment_id.valid_max = 999 
-segment_id.observation_type = "calculated"  # TODO: Unnecessary? Potentially confusing.
-segment_id.ancillary_variables = "platform profile_id trajectory"  # TODO: Not sure ancillary_variables work here.
-segment_id.platform = "platform" 
+segment_id.observation_type = "calculated"  # TODO: Unnecessary? Potentially confusing. Suggest removing
+segment_id.ancillary_variables = "platform profile_id trajectory"  # TODO: Violates definition of ancillary_variable.  Remove.
+segment_id.platform = "platform" # TODO: Unnecessary? Potentially confusing. Suggest removing Suggest removing NODC recommends using only with geophysical variables.
 
-profile_id =    nc.createVariable('profile_id','i4',('time',))
+profile_id = nc.createVariable('profile_id','i4',('time',))
 #profile_id._FillValue = -2147483647 ;
-profile_id.comment = "Sequential profile number contained in the trajectory. A profile is defined a single dive or climb" ;
+# TODO: Revise definition.  Is this true?  Is it consistent across glider types?
+profile_id.comment = "Sequential profile number within the current in the segment. A profile is defined a single dive or climb TODO: Revise definition." ;
 profile_id.long_name = "Profile ID" ;
 profile_id.valid_min = 1 ;
 profile_id.valid_max = 999 ;
-profile_id.observation_type = "calculated" ;
-profile_id.ancillary_variables = "platform segment_id trajectory" ;
-profile_id.platform = "platform" ;  # TODO: Necessary?
+profile_id.observation_type = "calculated" ;  # TODO: Unnecessary? Potentially confusing. Suggest removing
+profile_id.ancillary_variables = "platform segment_id trajectory" ; # TODO: Violates definition of ancillary_variable.  Remove.
+profile_id.platform = "platform" ;  # TODO: Unnecessary? Potentially confusing. Suggest removing NODC recommends using only with geophysical variables.
 
 # Container Variables
 platform = nc.createVariable('platform','i4')
-platform.type = "slocum" # TODO: Put controlled vocabulary on the wiki to ref.  {slocum, spray, seaglider}
+platform.type = "slocum" # Controlled vocabulary  {slocum, spray, seaglider}
 platform.id = "ru29" ;
 platform.wmo_id = "ru29" ;
 platform.comment = "Slocum Glider ru29" ;
 platform.long_name = "Slocum Glider ru29" ;
-platform.instrument = "instrument_ctd" # TODO: Check NODC, comma separated list of instruments?
+platform.instrument = "instrument_ctd" # TODO: Add guidance on the wiki to recommend using a comma separated list of instruments?
 
 instrument_ctd = nc.createVariable('instrument_ctd','i4')
 instrument_ctd.comment = "Unpumped CTD with a nominal sampling rate of 1Hz." ;
 instrument_ctd.serial_number = -1 ;
-instrument_ctd.long_name = "Seabird SBD 41CP Conductivity, Temperature, Depth Sensor." ;
+instrument_ctd.long_name = "Seabird SBE 41CP Conductivity, Temperature, Depth Sensor." ;
+instrument_ctd.make_model = "Seabird  SBE 41CP";
+instrument_ctd.platform = "platform" ;
+# TODO: NODC recommended variable attributes: make_model, serial_number, calibration_date, factory_calibrated, user_calibrated, calibration_report, accuracy, valid_range, and precision. 
+# This means we should consider variable specific instrument variables.  e.g. instrument_temperature, instrument_conductivity
 #instrument_ctd.ancillary_variables = "platform temperature temperature_qc salinity salinity_qc pressure pressure_qc depth depth_qc conductivity conductivity_qc" ;
 # TODO: Look into the proper usage of ancillary_variables.  I think there is a restriction on the axes for ancillary variables that we are abusing.
 
@@ -139,7 +145,7 @@ depth.long_name = "Depth"
 depth.reference_datum = "sea-surface" # TODO: Check with Stuebe to see if ther is a crs for this.
 depth.vertical_positive = "down" # TODO: Check CF
 depth.observation_type = "calculated" 
-depth.ancillary_variables = "depth_qc instrument_ctd" 
+depth.ancillary_variables = "depth_qc instrument_ctd" # TODO: only refer to variables with the same shape. Remove instrument_ctd
 depth.platform = "platform" 
 depth.instrument = "instrument_ctd" 
 
@@ -147,10 +153,11 @@ depth.instrument = "instrument_ctd"
 depth_qc = nc.createVariable('depth_qc','S1',('time',),fill_value=-127b)
 depth_qc.long_name = "depth Quality Flag" 
 depth_qc.standard_name = "depth status_flag" 
-depth_qc.flag_meanings = "" 
+depth_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 depth_qc.valid_range = 0., 128. 
 depth_qc.flag_values = "" 
-depth_qc.ancillary_variables = "depth instrument_ctd" 
+depth_qc.ancillary_variables = "depth instrument_ctd" # TODO: only refer to variables with the same shape. Remove instrument_ctd
+# TODO: I don't think the ancillary_variable reference is intended to be bi-directional.
 
 lat = nc.createVariable('lat','f8', ('time',),fill_value=9.96920996838687e+36)
 lat.axis = "Y" 
@@ -308,7 +315,7 @@ temperature_qc.ancillary_variables = "temperature instrument_ctd"
 
 
 # Depth/Time averaged estiamtes per segment
-double u(time_avg) 
+double u(time_uv) 
 u._FillValue = 9.96920996838687e+36 
 u.units = "m s-1" 
 u.standard_name = "eastward_sea_water_velocity" 
