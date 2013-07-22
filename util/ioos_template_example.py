@@ -41,13 +41,16 @@
 #   instrument_ctd(nodim)
 #
 # This template is used to generate an empty (no data values) .nc file.  The
-# .nc file may then be dumped to .cdl and .ncml.
+# .nc file may then be dumped to .cdl and .ncml.  A generic filename is used
+# for the destination file.  Files containing actual glider data should follow
+# the file naming conventions at:
+# https://github.com/IOOSProfilingGliders/Real-Time-File-Format/wiki/Real-Time-File-Description#file-naming-convention
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta;
 from netCDF4 import default_fillvals as NC_FILL_VALUES;
-from netCDF4 import num2date, date2num
-from netCDF4 import Dataset
-import time as t
+from netCDF4 import num2date, date2num;
+from netCDF4 import Dataset;
+import time as t;
 
 # NetCDF4 compression level (1 seems to be optimal, in terms of effort and
 # result)
@@ -55,66 +58,76 @@ COMP_LEVEL = 1;
 
 # Name of output file (leave v.0.0 pending release of accepted spec):
 # kerfoot@marine.rutgers.edu
-nc = Dataset('./glider_trajectory_uv_template_v.0.0.nc', 'w', format='NETCDF4_CLASSIC')
+nc = Dataset('./glider_trajectory_uv_template_v.0.0.nc',
+  'w',
+  format='NETCDF4_CLASSIC');
 
 # Dimensions
-time= nc.createDimension('time', None)
-trajectory= nc.createDimension('trajectory', 1)
-time_uv= nc.createDimension('time_uv',1)
+time= nc.createDimension('time', None);
+trajectory= nc.createDimension('trajectory', 1);
+time_uv= nc.createDimension('time_uv',1);
 
 # Global Attributes
-# 2013-07-19 kerfoot@marine.rutgers.edu: haven't looked these over yet
-nc.Conventions = "CF-1.6" 
-nc.Metadata_Conventions = "Unidata Dataset Discovery v1.0" # TODO: Propose change to ACDD  
-nc.acknowledgment = "This deployment partially supported by ..." # 
-nc.cdl_template_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" # changed to file_version (?)
-nc.cdm_data_type = "Trajectory" 
-nc.comment = "This file was created as an example only.  Data is not to be used for scientific purposes." 
-nc.contributor_name = "Scott Glenn, Oscar Schofield, John Kerfoot" 
-nc.contributor_role = "Principal Investigator, Principal Investigator, Data Manager" 
-nc.creator_email = "kerfoot@marine.rutgers.edu" 
-nc.creator_name = "John Kerfoot" 
-nc.creator_url = "http://marine.rutgers.edu/cool/auvs" 
-nc.date_created = "2013-05-08 14:45 UTC" 
-nc.date_issued = "2013-05-08 14:45 UTC" 
-nc.date_modified = "2013-05-08 14:45 UTC" 
-nc.featureType = "trajectory" 
-nc.file_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0" # TODO Check comparison spreadsheet
-nc.geospatial_lat_max = -15.88833 
-nc.geospatial_lat_min = -15.9445416666667 
-nc.geospatial_lat_resolution = "point" 
-nc.geospatial_lat_units = "degrees_north" 
-nc.geospatial_lon_max = 1.49547333333333 
-nc.geospatial_lon_min = 1.394655 
-nc.geospatial_lon_resolution = "point" 
-nc.geospatial_lon_units = "degrees_east" 
-nc.geospatial_vertical_max = 987.26 
-nc.geospatial_vertical_min = 0. 
-nc.geospatial_vertical_positive = "down"  # TODO: Better represented as a variable attribute for depth?
-nc.geospatial_vertical_resolution = "point" 
-nc.geospatial_vertical_units = "meters" 
-nc.history = "Created on " + t.ctime(t.time())
-nc.id = "ru29-20130507T211956" 
-nc.institution = "Institute of Marine & Coastal Sciences, Rutgers University" 
-nc.keywords = "Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity" ;
-nc.keywords_vocabulary = "GCMD Science Keywords" 
-nc.license = "This data may be redistributed and used without restriction." 
-nc.metadata_link = "" 
-nc.naming_authority = "edu.rutgers.marine" 
-nc.processing_level = "Dataset taken from glider native file format" 
-nc.project = "Deployment not project based" 
-nc.publisher_email = "kerfoot@marine.rutgers.edu" 
-nc.publisher_name = "John Kerfoot" 
-nc.publisher_url = "http://marine.rutgers.edu/cool/auvs" 
-nc.sea_name = "" 
-nc.standard_name_vocabulary = "CF-1.6" # TODO Check CF. Should be CF23 or something similar
-nc.source = 'netCDF4 python module tutorial' # CF Definition: 
-nc.summary = "The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA." ;
-nc.time_coverage_end = "2013-05-08 07:56 UTC" 
-nc.time_coverage_resolution = "point" 
-nc.time_coverage_start = "2013-05-07 21:19 UTC" 
-nc.title = "Slocum Glider Dataset" 
-
+# 2013-07-22 kerfoot@marine.rutgers.edu: sync'd with github wiki global
+# attribute list.  Didn't resolve any DS comments/TODOs
+global_attributes = {
+  'Conventions' : 'CF-1.6',
+  'Metadata_Conventions' : 'Unidata Dataset Discovery v1.0', # TODO: Propose change to ACDD
+  'acknowledgment' : 'This deployment partially supported by ...', #
+#  'cdl_template_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0' # changed to file_version (?),
+  'cdm_data_type' : 'Trajectory',
+  'comment' : 'This file is intended to be used as a template only.  Data is not to be used for scientific purposes.',
+  'contributor_name' : 'Scott Glenn, Oscar Schofield, John Kerfoot',
+  'contributor_role' : 'Principal Investigator, Principal Investigator, Data Manager',
+  'creator_email' : 'kerfoot@marine.rutgers.edu',
+  'creator_name' : 'John Kerfoot',
+  'creator_url' : 'http://marine.rutgers.edu/cool/auvs',
+  'date_created' : '2013-05-08 14:45 UTC',
+  'date_issued' : '2013-05-08 14:45 UTC',
+  'date_modified' : '2013-05-08 14:45 UTC',
+  'featureType' : 'trajectory',
+  'file_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', # TODO Check comparison spreadsheet
+  'geospatial_lat_max' : -15.88833,
+  'geospatial_lat_min' : -15.9445416666667,
+  'geospatial_lat_resolution' : 'point',
+  'geospatial_lat_units' : 'degrees_north',
+  'geospatial_lon_max' : 1.49547333333333,
+  'geospatial_lon_min' : 1.394655,
+  'geospatial_lon_resolution' : 'point',
+  'geospatial_lon_units' : 'degrees_east',
+  'geospatial_vertical_max' : 987.26,
+  'geospatial_vertical_min' : 0.,
+  'geospatial_vertical_positive' : 'down',  # TODO: Better represented as a variable attribute for depth?
+  'geospatial_vertical_resolution' : 'point',
+  'geospatial_vertical_units' : 'meters',
+  'history' : 'Created on ' + t.ctime(t.time()),
+  'id' : 'ru29-20130507T211956',
+  'institution' : 'Institute of Marine & Coastal Sciences, Rutgers University',
+  'keywords' : 'Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity',
+  'keywords_vocabulary' : 'GCMD Science Keywords',
+  'license' : 'This data may be redistributed and used without restriction.',
+  'metadata_link' : '',
+  'naming_authority' : 'edu.rutgers.marine',
+  'processing_level' : 'Dataset taken from glider native file format',
+  'project' : 'Deployment not project based',
+  'publisher_email' : 'kerfoot@marine.rutgers.edu',
+  'publisher_name' : 'John Kerfoot',
+  'publisher_url' : 'http://marine.rutgers.edu/cool/auvs',
+  'references' : '',
+  'sea_name' : 'South Atlantic Ocean',
+  'standard_name_vocabulary' : 'CF-1.6', # TODO Check CF. Should be CF23 or something similar
+  'source' : 'Observational data from a profiling glider', # CF Definition:
+  'summary' : 'The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.',
+  'time_coverage_end' : '2013-05-08 07:56 UTC',
+  'time_coverage_resolution' : 'point',
+  'time_coverage_start' : '2013-05-07 21:19 UTC',
+  'title' : 'Slocum Glider Dataset',
+};
+# Dictionary of global file attributes.  Use a dictionary so that we can add the
+# attributes in alphabetical order (not necessary, but makes it easier to find
+# attributes that are in alphabetical order)
+for k in sorted(global_attributes.keys()) :
+  nc.setncattr(k, global_attributes[k]);
 
 # Variable Definitions
 # time: no _Fill_Value since dimension
@@ -703,7 +716,7 @@ atts = {'units' : 'm s-1',
     'platform' : 'platform',
     };
 for k in sorted(atts.keys()):
-  u.setncattr(k, atts[k]);
+  v.setncattr(k, atts[k]);
 
 # v_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
