@@ -5,6 +5,8 @@
 #     - creation of variables and addition of recommended variable attributes
 #     - variable attributes are added as dictionary items so that they can be
 #       sorted and added alphabetically.
+# 2013-07-22 dsnowden: modified script to include github issues where appropriate 
+#   and to resolve several issues.
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -72,9 +74,8 @@ time_uv= nc.createDimension('time_uv',1);
 # attribute list.  Didn't resolve any DS comments/TODOs
 global_attributes = {
   'Conventions' : 'CF-1.6',
-  'Metadata_Conventions' : 'Unidata Dataset Discovery v1.0', # TODO: Propose change to ACDD
+  'Metadata_Conventions' : 'Unidata Dataset Discovery v1.0', # TODO: A change has been proposed to ACDD.  Use this for now.
   'acknowledgment' : 'This deployment partially supported by ...', #
-#  'cdl_template_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0' # changed to file_version (?),
   'cdm_data_type' : 'Trajectory',
   'comment' : 'This file is intended to be used as a template only.  Data is not to be used for scientific purposes.',
   'contributor_name' : 'Scott Glenn, Oscar Schofield, John Kerfoot',
@@ -86,7 +87,7 @@ global_attributes = {
   'date_issued' : '2013-05-08 14:45 UTC',
   'date_modified' : '2013-05-08 14:45 UTC',
   'featureType' : 'trajectory',
-  'file_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', # TODO Check comparison spreadsheet
+  'file_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', 
   'geospatial_lat_max' : -15.88833,
   'geospatial_lat_min' : -15.9445416666667,
   'geospatial_lat_resolution' : 'point',
@@ -97,7 +98,7 @@ global_attributes = {
   'geospatial_lon_units' : 'degrees_east',
   'geospatial_vertical_max' : 987.26,
   'geospatial_vertical_min' : 0.,
-  'geospatial_vertical_positive' : 'down',  # TODO: Better represented as a variable attribute for depth?
+  'geospatial_vertical_positive' : 'down',  
   'geospatial_vertical_resolution' : 'point',
   'geospatial_vertical_units' : 'meters',
   'history' : 'Created on ' + t.ctime(t.time()),
@@ -115,8 +116,8 @@ global_attributes = {
   'publisher_url' : 'http://marine.rutgers.edu/cool/auvs',
   'references' : '',
   'sea_name' : 'South Atlantic Ocean',
-  'standard_name_vocabulary' : 'CF-1.6', # TODO Check CF. Should be CF23 or something similar
-  'source' : 'Observational data from a profiling glider', # CF Definition:
+  'standard_name_vocabulary' : 'CF-v25', # TODO: Or, represent using URL e.g. http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/25/
+  'source' : 'Observational data from a profiling glider', 
   'summary' : 'The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.',
   'time_coverage_end' : '2013-05-08 07:56 UTC',
   'time_coverage_resolution' : 'point',
@@ -167,9 +168,10 @@ atts = {'axis' : "T",
     };
 for k in sorted(atts.keys()):
   time_uv.setncattr(k, atts[k]);
-# TODO: Add cell_methods here or in u, v
+# TODO: See [issue 2](https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/2). 
 
-# trajectory: 2 byte integer - no _Fill_Value since dimension
+# trajectory: 2 byte integer - no _FillValue since dimension
+# TODO: See [issue 1](https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/1). 
 trajectory = nc.createVariable('trajectory',
   'i2',
   ('trajectory',),
@@ -186,8 +188,6 @@ for k in sorted(atts.keys()):
   trajectory.setncattr(k, atts[k]);
 
 
-# TODO: Investigate fill value behavior for this library.  See below for a comment from the netcdf4 docs
-# The optional keyword fill_value can be used to override the default netCDF _FillValue (the value that the variable gets filled with before any data is written to it, defaults given in netCDF4.default_fillvals). If fill_value is set to False, then the variable is not pre-filled.
 
 # segment_id: 2 byte integer
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
@@ -199,7 +199,7 @@ segment_id = nc.createVariable('segment_id',
   zlib=True,
   complevel=COMP_LEVEL,
   fill_value=NC_FILL_VALUES['i2']);
-atts = {'comment' : 'Sequential segment number within a trajectory. The set of data collected between 2 gps fixes obtained when the glider surfaces.',
+atts = {'comment' : 'Sequential segment number within a trajectory/deployment. A segment corresponds to the set of data collected between 2 gps fixes obtained when the glider surfaces.',
     'long_name' : 'Segment ID',
     'valid_min' : 1,
     'valid_max' : 999,
@@ -223,7 +223,7 @@ profile_id = nc.createVariable('profile_id',
 # Dictionary of variable attributes.  Use a dictionary so that we can add the
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
-atts = {'comment' : 'Sequential profile number within the current in the segment. A profile is defined a single dive or climb', #  TODO: Revise definition'
+atts = {'comment' : 'Sequential profile number within the current segment. A profile is defined as a single dive or climb', #  TODO: Revise definition'
     'long_name' : 'Profile ID',
     'valid_min' : 1,
     'valid_max' : 999,
@@ -254,8 +254,8 @@ atts = {'axis' : 'Z',
     'valid_min' : 0,
     'valid_max' : 2000,
     'long_name' : 'Depth',
-    'reference_datum' : 'sea-surface', # TODO: Check with Stuebe to see if ther is a crs for this.
-    'vertical_positive' : 'down', # TODO: Check CF
+    'reference_datum' : 'sea-surface', # TODO: https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/3
+    'positive' : 'down', # Changed from vertical_positive to positive. http://cf-pcmdi.llnl.gov/documents/cf-conventions/1.6/cf-conventions.html#idp5784080
     'observation_type' : 'calculated',
     'ancillary_variables' : 'depth_qc',
     'platform' : 'platform',
@@ -417,8 +417,8 @@ atts = {'axis' : 'Z',
     'valid_min' : 0,
     'valid_max' : 2000,
     'long_name' : 'Pressure',
-    'reference_datum' : 'sea-surface', # TODO: Check with Stuebe to see if ther is a crs for this.
-    'vertical_positive' : 'down', # TODO: Check CF
+    'reference_datum' : 'sea-surface', 
+    'positive' : 'down', 
     'observation_type' : 'calculated',
     'ancillary_variables' : 'pressure_qc',
     'platform' : 'platform',
@@ -760,8 +760,8 @@ atts = {'type' : 'platform',
 for k in sorted(atts.keys()):
   platform.setncattr(k, atts[k]);
 
-#platform.instrument = "instrument_ctd" # TODO: Add guidance on the wiki to recommend using a comma separated list of instruments?
 
+# TODO: Determine the number of instrument variables needed.  https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/4
 # instrument_ctd: 1 byte integer, not dimensioned
 instrument_ctd = nc.createVariable('instrument_ctd',
     'i1');
@@ -780,13 +780,9 @@ atts = { 'serial_number' : '0098',
     'accuracy' : '', # Different accuracy values for pressure, cond, temp (?)
     'precision' : '', # Different precision values for pressure, cond, temp (?)
     'valid_range' : '', # Different valid_ranges for pressure, cond, temp (?)
-    'ancillary_variables' : 'platform temperature temperature_qc conductivity conductivity_qc salinity salinity_qc pressure pressure_qc depth depth_qc density density_qc',
     };
 for k in sorted(atts.keys()):
   instrument_ctd.setncattr(k, atts[k]);
 
-## TODO: NODC recommended variable attributes: make_model, serial_number, calibration_date, factory_calibrated, user_calibrated, calibration_report, accuracy, valid_range, and precision. 
-## This means we should consider variable specific instrument variables.  e.g. instrument_temperature, instrument_conductivity
-##instrument_ctd.ancillary_variables = "platform temperature temperature_qc salinity salinity_qc pressure pressure_qc depth depth_qc conductivity conductivity_qc" ;
-## TODO: Look into the proper usage of ancillary_variables.  I think there is a restriction on the axes for ancillary variables that we are abusing.
 
+nc.close()
