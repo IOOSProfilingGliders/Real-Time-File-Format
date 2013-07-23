@@ -17,7 +17,7 @@
   <attribute name="date_issued" value="2013-05-08 14:45 UTC" />
   <attribute name="date_modified" value="2013-05-08 14:45 UTC" />
   <attribute name="featureType" value="trajectory" />
-  <attribute name="file_version" value="IOOS_Glider_NetCDF_Trajectory_Template_v0.0" />
+  <attribute name="format_version" value="IOOS_Glider_NetCDF_Trajectory_Template_v0.0" />
   <attribute name="geospatial_lat_max" type="double" value="-15.88833" />
   <attribute name="geospatial_lat_min" type="double" value="-15.9445416666667" />
   <attribute name="geospatial_lat_resolution" value="point" />
@@ -31,7 +31,7 @@
   <attribute name="geospatial_vertical_positive" value="down" />
   <attribute name="geospatial_vertical_resolution" value="point" />
   <attribute name="geospatial_vertical_units" value="meters" />
-  <attribute name="history" value="Created on Mon Jul 22 15:49:44 2013" />
+  <attribute name="history" value="Created on Tue Jul 23 12:46:53 2013" />
   <attribute name="id" value="ru29-20130507T211956" />
   <attribute name="institution" value="Institute of Marine &amp; Coastal Sciences, Rutgers University" />
   <attribute name="keywords" value="Oceans &gt; Ocean Pressure &gt; Water Pressure, Oceans &gt; Ocean Temperature &gt; Water Temperature, Oceans &gt; Salinity/Density &gt; Conductivity, Oceans &gt; Salinity/Density &gt; Density, Oceans &gt; Salinity/Density &gt; Salinity" />

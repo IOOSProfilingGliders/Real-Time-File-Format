@@ -87,7 +87,7 @@ global_attributes = {
   'date_issued' : '2013-05-08 14:45 UTC',
   'date_modified' : '2013-05-08 14:45 UTC',
   'featureType' : 'trajectory',
-  'file_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', 
+  'format_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', # NOTE: Changed from file_version for conformance with GROOM.
   'geospatial_lat_max' : -15.88833,
   'geospatial_lat_min' : -15.9445416666667,
   'geospatial_lat_resolution' : 'point',

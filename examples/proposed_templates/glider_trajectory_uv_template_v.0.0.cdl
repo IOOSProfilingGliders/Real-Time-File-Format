@@ -298,7 +298,7 @@ netcdf C:/Users/derrick.snowden/Documents/GitHub/Real-Time-File-Format/examples/
  :date_issued = "2013-05-08 14:45 UTC";
  :date_modified = "2013-05-08 14:45 UTC";
  :featureType = "trajectory";
- :file_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0";
+ :format_version = "IOOS_Glider_NetCDF_Trajectory_Template_v0.0";
  :geospatial_lat_max = -15.88833; // double
  :geospatial_lat_min = -15.9445416666667; // double
  :geospatial_lat_resolution = "point";
@@ -312,7 +312,7 @@ netcdf C:/Users/derrick.snowden/Documents/GitHub/Real-Time-File-Format/examples/
  :geospatial_vertical_positive = "down";
  :geospatial_vertical_resolution = "point";
  :geospatial_vertical_units = "meters";
- :history = "Created on Mon Jul 22 15:49:44 2013";
+ :history = "Created on Tue Jul 23 12:46:53 2013";
  :id = "ru29-20130507T211956";
  :institution = "Institute of Marine & Coastal Sciences, Rutgers University";
  :keywords = "Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity";
