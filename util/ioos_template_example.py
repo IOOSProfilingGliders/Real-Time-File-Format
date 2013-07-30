@@ -7,6 +7,9 @@
 #       sorted and added alphabetically.
 # 2013-07-22 dsnowden: modified script to include github issues where appropriate 
 #   and to resolve several issues.
+# 2013-07-30 kerfoot: mods to trajectory variable, moved accuracy, precision,
+#   resolution attributes from the instrument_ctd variable to the appropriate
+#   data variables.
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -172,6 +175,11 @@ for k in sorted(atts.keys()):
 
 # trajectory: 2 byte integer - no _FillValue since dimension
 # TODO: See [issue 1](https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/1). 
+# 2013-07-30 kerfoot: per discussion with dsnowden, we're going to go with
+# hard coding the value of this variable to the number 1 across all files.  
+# TODO: Create 2 sets of 2 files: the first file set contains trajectory = 1
+# in both files.  the second file set contains trajectory = 1 in the first
+# file and trajectory=2 in the second.  Test TDS aggregation.
 trajectory = nc.createVariable('trajectory',
   'i2',
   ('trajectory',),
@@ -402,6 +410,8 @@ for k in sorted(atts.keys()):
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
 # fill_value based on the data type.
+# 2013-07-30 kerfoot: added accuracy, resolution and precision attributes per
+# GROOM specification.
 pressure = nc.createVariable('pressure',
   'f8',
   ('time',),
@@ -423,6 +433,9 @@ atts = {'axis' : 'Z',
     'ancillary_variables' : 'pressure_qc',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
+    'accuracy' : '',
+    'precision' : '',
+    'resolution' : '',
     };
 for k in sorted(atts.keys()):
   pressure.setncattr(k, atts[k]);
@@ -453,6 +466,9 @@ for k in sorted(atts.keys()):
   pressure_qc.setncattr(k, atts[k]);
 
 #pressure_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+
+# 2013-07-30 kerfoot: added accuracy, resolution and precision attributes per
+# GROOM specification.
 # conductivity: 64 bit float
 conductivity = nc.createVariable('conductivity',
     'f8',
@@ -473,6 +489,9 @@ atts = { 'units' : 'S m-1',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
     'coordinates' : 'lon lat depth time',
+    'accuracy' : '',
+    'precision' : '',
+    'resolution' : '',
     };
 for k in sorted(atts.keys()):
   conductivity.setncattr(k, atts[k]);
@@ -600,6 +619,8 @@ for k in sorted(atts.keys()):
 
 #salinity_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 
+# 2013-07-30 kerfoot: added accuracy, resolution and precision attributes per
+# GROOM specification.
 # temperature: 64 bit float
 temperature = nc.createVariable('temperature',
     'f8',
@@ -620,6 +641,9 @@ atts = { 'units' : 'Celsius',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
     'coordinates' : 'lon lat depth time',
+    'accuracy' : '',
+    'precision' : '',
+    'resolution' : '',
     };
 for k in sorted(atts.keys()):
   temperature.setncattr(k, atts[k]);
@@ -762,6 +786,8 @@ for k in sorted(atts.keys()):
 
 
 # TODO: Determine the number of instrument variables needed.  https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/4
+# 2013-07-30 kerfoot: moved accuracy, precision attributes to C,T and P
+# variables.  Deleted valid_range attribute.
 # instrument_ctd: 1 byte integer, not dimensioned
 instrument_ctd = nc.createVariable('instrument_ctd',
     'i1');
@@ -777,9 +803,6 @@ atts = { 'serial_number' : '0098',
     'factory_calibrated' : '',
     'user_calibrated' : '',
     'calibration_report' : '',
-    'accuracy' : '', # Different accuracy values for pressure, cond, temp (?)
-    'precision' : '', # Different precision values for pressure, cond, temp (?)
-    'valid_range' : '', # Different valid_ranges for pressure, cond, temp (?)
     };
 for k in sorted(atts.keys()):
   instrument_ctd.setncattr(k, atts[k]);
