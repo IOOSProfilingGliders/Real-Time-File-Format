@@ -10,6 +10,10 @@
 # 2013-07-30 kerfoot: mods to trajectory variable, moved accuracy, precision,
 #   resolution attributes from the instrument_ctd variable to the appropriate
 #   data variables.
+# 2013-08-02 kerfoot: added lat_uv, lon_uv variables, 'sensor_name' attribute
+#   to applicable variables.  Added 'reference' and
+#   'coordinate_reference_frame' attributes to lat & lon per GROOM spec.
+#   Added 'flag_meanings' and 'flag_values' attribute values per GROOM spec.
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -38,10 +42,14 @@
 #   density(time): byte
 #   temperature(time): double
 #   temperature_qc(time): byte
+#   lat_uv(time_uv): double
+#   lon_uv(time_uv): double
 #   u(time_uv): double
 #   u_qc(time_uv): byte
 #   v(time_uv): double
 #   v_qc(time_uv): byte
+#   lat_uv(time_uv): double
+#   lon_uv(time_uv): double
 #   platform(nodim)
 #   instrument_ctd(nodim)
 #
@@ -51,6 +59,7 @@
 # the file naming conventions at:
 # https://github.com/IOOSProfilingGliders/Real-Time-File-Format/wiki/Real-Time-File-Description#file-naming-convention
 
+import numpy as np;
 from datetime import datetime, timedelta;
 from netCDF4 import default_fillvals as NC_FILL_VALUES;
 from netCDF4 import num2date, date2num;
@@ -133,7 +142,13 @@ global_attributes = {
 for k in sorted(global_attributes.keys()) :
   nc.setncattr(k, global_attributes[k]);
 
+# Create array of unsigned 8-bit integers to use for _qc flag values
+QC_FLAGS = np.array(range(0,10), 'int8');
+QC_FLAG_MEANINGS = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value";
+
 # Variable Definitions
+# ----------------------------------------------------------------------------
+# TIME
 # time: no _Fill_Value since dimension
 time = nc.createVariable('time',
   'f8',
@@ -149,9 +164,36 @@ atts = {'axis' : "T",
     'standard_name' : 'time',
     'long_name' : 'Time',
     'observation_type' : 'measured',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   time.setncattr(k, atts[k]);
+
+# ----------------------------------------------------------------------------
+# TIME_QC
+# time_qc: 1 byte integer (ie: byte)
+# kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
+# variable so that it shows up as a variable attribute.  Use the default
+# fill_value based on the data type.
+time_qc = nc.createVariable('time_qc',
+  'i1',
+  ('time',),
+  zlib=True,
+  complevel=COMP_LEVEL,
+  fill_value=NC_FILL_VALUES['i1']);
+# Dictionary of variable attributes.  Use a dictionary so that we can add the
+# attributes in alphabetical order (not necessary, but makes it easier to find
+# attributes that are in alphabetical order)
+atts = { 'long_name' : 'time Quality Flag',
+    'standard_name' : 'time status_flag',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
+    };
+for k in sorted(atts.keys()):
+  time_qc.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
 # time_uv: 64 bit float - no _Fill_Value since dimension
 time_uv = nc.createVariable('time_uv',
@@ -172,7 +214,10 @@ atts = {'axis' : "T",
 for k in sorted(atts.keys()):
   time_uv.setncattr(k, atts[k]);
 # TODO: See [issue 2](https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/2). 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# TRAJECTORY
 # trajectory: 2 byte integer - no _FillValue since dimension
 # TODO: See [issue 1](https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/1). 
 # 2013-07-30 kerfoot: per discussion with dsnowden, we're going to go with
@@ -194,9 +239,10 @@ atts = {'cf_role' : 'trajectory_id',
     };
 for k in sorted(atts.keys()):
   trajectory.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
-
-
+# ----------------------------------------------------------------------------
+# SEGMENT_ID
 # segment_id: 2 byte integer
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -217,7 +263,10 @@ for k in sorted(atts.keys()):
   segment_id.setncattr(k, atts[k]);
 
 # kerfoot@marine.rutgers.edu: Removed attributes: ancillary_variables, platform
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# PROFILE_ID
 # profile_id: 2 byte integer
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -241,8 +290,10 @@ for k in sorted(atts.keys()):
   profile_id.setncattr(k, atts[k]);
 
 # kerfoot@marine.rutgers.edu: Removed attributes: ancillary_variables, platform
+# ----------------------------------------------------------------------------
 
-# Geophysical Variables (time)
+# ----------------------------------------------------------------------------
+# DEPTH
 # depth: 64 bit float
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -268,12 +319,16 @@ atts = {'axis' : 'Z',
     'ancillary_variables' : 'depth_qc',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   depth.setncattr(k, atts[k]);
 
 # kerfoot@marine.rutgers.edu: removed 'instrument_ctd' from # ancillary_variables
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# DEPTH_QC
 # depth_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -289,18 +344,21 @@ depth_qc = nc.createVariable('depth_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'depth Quality Flag',
     'standard_name' : 'depth status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   depth_qc.setncattr(k, atts[k]);
 #depth_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # TODO: I don't think the ancillary_variable reference is intended to be bi-directional.
 # kerfoot@marine.rutgers.edu: removed 'ancillary_variable' attribute
+# ----------------------------------------------------------------------------
 
-# latitude: 64 bit float
+# ----------------------------------------------------------------------------
+# LAT
+# lat: 64 bit float
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
 # fill_value based on the data type.
@@ -324,10 +382,16 @@ atts = { 'axis' : 'Y',
     'ancillary_variables' : 'lat_qc',
     'platform' : 'platform',
     'comment' : 'Some values are linearly interpolated between measured coordinates.  See lat_qc', # kerfoot@marine.rutgers.edu: Should we interpolate missing values and add a comment ?  If so, what do do with 'observation_type' ?
+    'sensor_name' : '',
+    'reference' : 'WGS84', # GROOM manual, p16
+    'coordinate_reference_frame' : 'urn:ogc:crs:EPSG::4326', # GROOM manual, p16
     };
 for k in sorted(atts.keys()):
   lat.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# LAT_QC
 # lat_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -343,17 +407,20 @@ lat_qc = nc.createVariable('lat_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'lat Quality Flag',
     'standard_name' : 'lat status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   lat_qc.setncattr(k, atts[k]);
 
 #lat_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
-# longitude: 64 bit float
+# ----------------------------------------------------------------------------
+# LON
+# lon: 64 bit float
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
 # fill_value based on the data type.
@@ -377,10 +444,16 @@ atts = { 'axis' : 'X',
     'ancillary_variables' : 'lon_qc',
     'platform' : 'platform',
     'comment' : 'Some values are linearly interpolated between measured coordinates.  See lon_qc', # kerfoot@marine.rutgers.edu: Should we interpolate missing values and add a comment ? If so, what to do with 'observation_type' ?
+    'sensor_name' : '',
+    'reference' : 'WGS84', # GROOM manual, p16
+    'coordinate_reference_frame' : 'urn:ogc:crs:EPSG::4326', # GROOM manual, p16
     };
 for k in sorted(atts.keys()):
   lon.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# LON_QC
 # lon_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -396,16 +469,19 @@ lon_qc = nc.createVariable('lon_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'lon Quality Flag',
     'standard_name' : 'lon status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   lon_qc.setncattr(k, atts[k]);
 
 #lon_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# PRESSURE
 # pressure: 64 bit float
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -436,12 +512,16 @@ atts = {'axis' : 'Z',
     'accuracy' : '',
     'precision' : '',
     'resolution' : '',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   pressure.setncattr(k, atts[k]);
 
 # kerfoot@marine.rutgers.edu: removed 'instrument_ctd' from # ancillary_variables
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# PRESSURE_QC
 # pressure_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -457,16 +537,19 @@ pressure_qc = nc.createVariable('pressure_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'pressure Quality Flag',
     'standard_name' : 'pressure status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   pressure_qc.setncattr(k, atts[k]);
 
 #pressure_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# CONDUCTIVITY
 # 2013-07-30 kerfoot: added accuracy, resolution and precision attributes per
 # GROOM specification.
 # conductivity: 64 bit float
@@ -492,10 +575,14 @@ atts = { 'units' : 'S m-1',
     'accuracy' : '',
     'precision' : '',
     'resolution' : '',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   conductivity.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# CONDUCTIVITY_QC
 # conductivity_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -511,16 +598,19 @@ conductivity_qc = nc.createVariable('conductivity_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'conductivity Quality Flag',
     'standard_name' : 'conductivity status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   conductivity_qc.setncattr(k, atts[k]);
 
 #conductivity_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# DENSITY
 # density: 64 bit float
 density = nc.createVariable('density',
     'f8',
@@ -541,10 +631,14 @@ atts = { 'units' : 'kg m-3',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
     'coordinates' : 'lon lat depth time',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   density.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# DENSITY_QC
 # density_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -560,16 +654,19 @@ density_qc = nc.createVariable('density_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'density Quality Flag',
     'standard_name' : 'density status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   density_qc.setncattr(k, atts[k]);
 
 #density_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# SALINITY
 # salinity: 64 bit float
 salinity = nc.createVariable('salinity',
     'f8',
@@ -590,10 +687,14 @@ atts = { 'units' : '1e-3',
     'platform' : 'platform',
     'instrument' : 'instrument_ctd',
     'coordinates' : 'lon lat depth time',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   salinity.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# SALINITY_QC
 # salinity_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -609,16 +710,19 @@ salinity_qc = nc.createVariable('salinity_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'salinity Quality Flag',
     'standard_name' : 'salinity status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   salinity_qc.setncattr(k, atts[k]);
 
 #salinity_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# TEMPERATURE
 # 2013-07-30 kerfoot: added accuracy, resolution and precision attributes per
 # GROOM specification.
 # temperature: 64 bit float
@@ -644,10 +748,14 @@ atts = { 'units' : 'Celsius',
     'accuracy' : '',
     'precision' : '',
     'resolution' : '',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   temperature.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# TEMPERATURE_QC
 # temperature_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -663,16 +771,79 @@ temperature_qc = nc.createVariable('temperature_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'temperature Quality Flag',
     'standard_name' : 'temperature status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   temperature_qc.setncattr(k, atts[k]);
 
 #temperature_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# LAT_UV
+# lat_uv: 64 bit float
+# kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
+# variable so that it shows up as a variable attribute.  Use the default
+# fill_value based on the data type.
+lat_uv = nc.createVariable('lat_uv',
+  'f8',
+  ('time_uv',),
+  zlib=True,
+  complevel=COMP_LEVEL,
+  fill_value=NC_FILL_VALUES['f8']);
+# Dictionary of variable attributes.  Use a dictionary so that we can add the
+# attributes in alphabetical order (not necessary, but makes it easier to find
+# attributes that are in alphabetical order)
+atts = { 'axis' : 'Y',
+    'units' : 'degrees_north',
+    'standard_name' : 'latitude',
+    'long_name' : 'Center Latitude for Depth-Averaged Current',
+    'flag_meanings' : '',
+    'valid_min' : -90.,
+    'valid_max' : 90.,
+    'observation_type' : 'calculated',
+    'platform' : 'platform',
+    'comment' : 'Values are interpolated to provide the center latitude of the segment',
+    };
+for k in sorted(atts.keys()):
+  lat_uv.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# LON_UV
+# lon_uv: 64 bit float
+# kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
+# variable so that it shows up as a variable attribute.  Use the default
+# fill_value based on the data type.
+lon_uv = nc.createVariable('lon_uv',
+  'f8',
+  ('time_uv',),
+  zlib=True,
+  complevel=COMP_LEVEL,
+  fill_value=NC_FILL_VALUES['f8']);
+# Dictionary of variable attributes.  Use a dictionary so that we can add the
+# attributes in alphabetical order (not necessary, but makes it easier to find
+# attributes that are in alphabetical order)
+atts = { 'axis' : 'X',
+    'units' : 'degrees_east',
+    'standard_name' : 'longitude',
+    'long_name' : 'Center Longitude for Depth-Averaged Current',
+    'flag_meanings' : '',
+    'valid_min' : -180.,
+    'valid_max' : 180.,
+    'observation_type' : 'calculated',
+    'platform' : 'platform',
+    'comment' : 'Values are interpolated to provide the center longitude of the segment',
+    };
+for k in sorted(atts.keys()):
+  lon_uv.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# U
 # u: 64 bit float
 u = nc.createVariable('u',
     'f8',
@@ -691,10 +862,14 @@ atts = {'units' : 'm s-1',
     'observation_type' : 'calculated',
     'coordinates' : 'time_uv',
     'platform' : 'platform',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   u.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# U_QC
 # u_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -710,16 +885,19 @@ u_qc = nc.createVariable('u_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'u Quality Flag',
     'standard_name' : 'u status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   u_qc.setncattr(k, atts[k]);
 
 #u_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# V
 # v: 64 bit float
 v = nc.createVariable('v',
     'f8',
@@ -738,10 +916,14 @@ atts = {'units' : 'm s-1',
     'observation_type' : 'calculated',
     'coordinates' : 'time_uv',
     'platform' : 'platform',
+    'sensor_name' : '',
     };
 for k in sorted(atts.keys()):
   v.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------
+# V_QC
 # v_qc: 1 byte integer (ie: byte)
 # kerfoot@marine.rutgers.edu: explicitly specify fill_value when creating
 # variable so that it shows up as a variable attribute.  Use the default
@@ -757,17 +939,20 @@ v_qc = nc.createVariable('v_qc',
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'v Quality Flag',
     'standard_name' : 'v status_flag',
-    'flag_meanings' : '',
-    'valid_min' : 0.,
-    'valid_max' : 128.,
-    'flag_values' : '',
+    'flag_meanings' : QC_FLAG_MEANINGS,
+    'valid_min' : QC_FLAGS[0],
+    'valid_max' : QC_FLAGS[-1],
+    'flag_values' : QC_FLAGS,
     };
 for k in sorted(atts.keys()):
   v_qc.setncattr(k, atts[k]);
 
 #v_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+# ----------------------------------------------------------------------------
 
 # Container Variables
+# ----------------------------------------------------------------------------
+# PLATFORM
 # platform: 1 byte integer, not dimensioned
 platform = nc.createVariable('platform',
     'i1');
@@ -783,8 +968,10 @@ atts = {'type' : 'platform',
     };
 for k in sorted(atts.keys()):
   platform.setncattr(k, atts[k]);
+# ----------------------------------------------------------------------------
 
-
+# ----------------------------------------------------------------------------
+# INSTRUMENT
 # TODO: Determine the number of instrument variables needed.  https://github.com/IOOSProfilingGliders/Real-Time-File-Format/issues/4
 # 2013-07-30 kerfoot: moved accuracy, precision attributes to C,T and P
 # variables.  Deleted valid_range attribute.
@@ -806,6 +993,6 @@ atts = { 'serial_number' : '0098',
     };
 for k in sorted(atts.keys()):
   instrument_ctd.setncattr(k, atts[k]);
-
+# ----------------------------------------------------------------------------
 
 nc.close()
