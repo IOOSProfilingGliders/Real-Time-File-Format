@@ -14,6 +14,8 @@
 #   to applicable variables.  Added 'reference' and
 #   'coordinate_reference_frame' attributes to lat & lon per GROOM spec.
 #   Added 'flag_meanings' and 'flag_values' attribute values per GROOM spec.
+# 2013-08-06 kerfoot: removed 'flag_meanings' attribute from lat_uv & lon_uv.
+#   Added 'coordinates' attribute and values to lat_uv & lon_uv.
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -144,6 +146,7 @@ for k in sorted(global_attributes.keys()) :
 
 # Create array of unsigned 8-bit integers to use for _qc flag values
 QC_FLAGS = np.array(range(0,10), 'int8');
+# Meanings of QC_FLAGS
 QC_FLAG_MEANINGS = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value";
 
 # Variable Definitions
@@ -351,7 +354,8 @@ atts = { 'long_name' : 'depth Quality Flag',
     };
 for k in sorted(atts.keys()):
   depth_qc.setncattr(k, atts[k]);
-#depth_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#depth_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # TODO: I don't think the ancillary_variable reference is intended to be bi-directional.
 # kerfoot@marine.rutgers.edu: removed 'ancillary_variable' attribute
 # ----------------------------------------------------------------------------
@@ -415,7 +419,8 @@ atts = { 'long_name' : 'lat Quality Flag',
 for k in sorted(atts.keys()):
   lat_qc.setncattr(k, atts[k]);
 
-#lat_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#lat_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -477,7 +482,8 @@ atts = { 'long_name' : 'lon Quality Flag',
 for k in sorted(atts.keys()):
   lon_qc.setncattr(k, atts[k]);
 
-#lon_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#lon_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -545,7 +551,8 @@ atts = { 'long_name' : 'pressure Quality Flag',
 for k in sorted(atts.keys()):
   pressure_qc.setncattr(k, atts[k]);
 
-#pressure_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#pressure_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -606,7 +613,8 @@ atts = { 'long_name' : 'conductivity Quality Flag',
 for k in sorted(atts.keys()):
   conductivity_qc.setncattr(k, atts[k]);
 
-#conductivity_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#conductivity_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -662,7 +670,8 @@ atts = { 'long_name' : 'density Quality Flag',
 for k in sorted(atts.keys()):
   density_qc.setncattr(k, atts[k]);
 
-#density_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#density_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -718,7 +727,8 @@ atts = { 'long_name' : 'salinity Quality Flag',
 for k in sorted(atts.keys()):
   salinity_qc.setncattr(k, atts[k]);
 
-#salinity_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#salinity_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -779,7 +789,8 @@ atts = { 'long_name' : 'temperature Quality Flag',
 for k in sorted(atts.keys()):
   temperature_qc.setncattr(k, atts[k]);
 
-#temperature_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#temperature_qc.flag_meanings = ""
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -801,7 +812,6 @@ atts = { 'axis' : 'Y',
     'units' : 'degrees_north',
     'standard_name' : 'latitude',
     'long_name' : 'Center Latitude for Depth-Averaged Current',
-    'flag_meanings' : '',
     'valid_min' : -90.,
     'valid_max' : 90.,
     'observation_type' : 'calculated',
@@ -831,7 +841,6 @@ atts = { 'axis' : 'X',
     'units' : 'degrees_east',
     'standard_name' : 'longitude',
     'long_name' : 'Center Longitude for Depth-Averaged Current',
-    'flag_meanings' : '',
     'valid_min' : -180.,
     'valid_max' : 180.,
     'observation_type' : 'calculated',
@@ -863,6 +872,7 @@ atts = {'units' : 'm s-1',
     'coordinates' : 'time_uv',
     'platform' : 'platform',
     'sensor_name' : '',
+    'coordinates' : 'lon_uv lat_uv time_uv',
     };
 for k in sorted(atts.keys()):
   u.setncattr(k, atts[k]);
@@ -893,7 +903,8 @@ atts = { 'long_name' : 'u Quality Flag',
 for k in sorted(atts.keys()):
   u_qc.setncattr(k, atts[k]);
 
-#u_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#u_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
@@ -917,6 +928,7 @@ atts = {'units' : 'm s-1',
     'coordinates' : 'time_uv',
     'platform' : 'platform',
     'sensor_name' : '',
+    'coordinates' : 'lon_uv lat_uv time_uv',
     };
 for k in sorted(atts.keys()):
   v.setncattr(k, atts[k]);
@@ -947,7 +959,8 @@ atts = { 'long_name' : 'v Quality Flag',
 for k in sorted(atts.keys()):
   v_qc.setncattr(k, atts[k]);
 
-#v_qc.flag_meanings = "" # TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
+#v_qc.flag_meanings = "" 
+# TODO: Choose QC Flag set for use in the representative case and inthe manual/wiki.  IODE flags? 
 # ----------------------------------------------------------------------------
 
 # Container Variables
