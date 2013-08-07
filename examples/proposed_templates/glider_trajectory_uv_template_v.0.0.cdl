@@ -236,7 +236,6 @@ variables:
 		lat_uv:_FillValue = 9.96920996838687e+36 ;
 		lat_uv:axis = "Y" ;
 		lat_uv:comment = "Values are interpolated to provide the center latitude of the segment" ;
-		lat_uv:flag_meanings =  ;
 		lat_uv:long_name = "Center Latitude for Depth-Averaged Current" ;
 		lat_uv:observation_type = "calculated" ;
 		lat_uv:platform = "platform" ;
@@ -248,7 +247,6 @@ variables:
 		lon_uv:_FillValue = 9.96920996838687e+36 ;
 		lon_uv:axis = "X" ;
 		lon_uv:comment = "Values are interpolated to provide the center longitude of the segment" ;
-		lon_uv:flag_meanings =  ;
 		lon_uv:long_name = "Center Longitude for Depth-Averaged Current" ;
 		lon_uv:observation_type = "calculated" ;
 		lon_uv:platform = "platform" ;
@@ -258,7 +256,7 @@ variables:
 		lon_uv:valid_min = -180. ;
 	double u(time_uv) ;
 		u:_FillValue = 9.96920996838687e+36 ;
-		u:coordinates = "time_uv" ;
+		u:coordinates = "lon_uv lat_uv time_uv" ;
 		u:long_name = "Eastward Sea Water Velocity" ;
 		u:observation_type = "calculated" ;
 		u:platform = "platform" ;
@@ -277,7 +275,7 @@ variables:
 		u_qc:valid_min = 0b ;
 	double v(time_uv) ;
 		v:_FillValue = 9.96920996838687e+36 ;
-		v:coordinates = "time_uv" ;
+		v:coordinates = "lon_uv lat_uv time_uv" ;
 		v:long_name = "Northward Sea Water Velocity" ;
 		v:observation_type = "calculated" ;
 		v:platform = "platform" ;
@@ -341,7 +339,7 @@ variables:
 		:geospatial_vertical_positive = "down" ;
 		:geospatial_vertical_resolution = "point" ;
 		:geospatial_vertical_units = "meters" ;
-		:history = "Created on Mon Aug  5 08:47:41 2013" ;
+		:history = "Created on Wed Aug  7 07:27:21 2013" ;
 		:id = "ru29-20130507T211956" ;
 		:institution = "Institute of Marine & Coastal Sciences, Rutgers University" ;
 		:keywords = "Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity" ;

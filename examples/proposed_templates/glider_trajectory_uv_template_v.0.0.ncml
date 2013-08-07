@@ -31,7 +31,7 @@
   <attribute name="geospatial_vertical_positive" value="down" />
   <attribute name="geospatial_vertical_resolution" value="point" />
   <attribute name="geospatial_vertical_units" value="meters" />
-  <attribute name="history" value="Created on Mon Aug  5 08:47:41 2013" />
+  <attribute name="history" value="Created on Wed Aug  7 07:27:21 2013" />
   <attribute name="id" value="ru29-20130507T211956" />
   <attribute name="institution" value="Institute of Marine &amp; Coastal Sciences, Rutgers University" />
   <attribute name="keywords" value="Oceans &gt; Ocean Pressure &gt; Water Pressure, Oceans &gt; Ocean Temperature &gt; Water Temperature, Oceans &gt; Salinity/Density &gt; Conductivity, Oceans &gt; Salinity/Density &gt; Density, Oceans &gt; Salinity/Density &gt; Salinity" />
@@ -307,7 +307,6 @@
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
     <attribute name="axis" value="Y" />
     <attribute name="comment" value="Values are interpolated to provide the center latitude of the segment" />
-    <attribute name="flag_meanings" value="" />
     <attribute name="long_name" value="Center Latitude for Depth-Averaged Current" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
@@ -320,7 +319,6 @@
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
     <attribute name="axis" value="X" />
     <attribute name="comment" value="Values are interpolated to provide the center longitude of the segment" />
-    <attribute name="flag_meanings" value="" />
     <attribute name="long_name" value="Center Longitude for Depth-Averaged Current" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
@@ -331,7 +329,7 @@
   </variable>
   <variable name="u" shape="time_uv" type="double">
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
-    <attribute name="coordinates" value="time_uv" />
+    <attribute name="coordinates" value="lon_uv lat_uv time_uv" />
     <attribute name="long_name" value="Eastward Sea Water Velocity" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
@@ -352,7 +350,7 @@
   </variable>
   <variable name="v" shape="time_uv" type="double">
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
-    <attribute name="coordinates" value="time_uv" />
+    <attribute name="coordinates" value="lon_uv lat_uv time_uv" />
     <attribute name="long_name" value="Northward Sea Water Velocity" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
