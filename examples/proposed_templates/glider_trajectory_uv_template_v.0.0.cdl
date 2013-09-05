@@ -14,7 +14,7 @@ variables:
 		time:units = "seconds since 1970-01-01 00:00:00 UTC" ;
 	byte time_qc(time) ;
 		time_qc:_FillValue = -127b ;
-		time_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		time_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		time_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		time_qc:long_name = "time Quality Flag" ;
 		time_qc:standard_name = "time status_flag" ;
@@ -62,7 +62,7 @@ variables:
 		depth:valid_min = 0 ;
 	byte depth_qc(time) ;
 		depth_qc:_FillValue = -127b ;
-		depth_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		depth_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		depth_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		depth_qc:long_name = "depth Quality Flag" ;
 		depth_qc:standard_name = "depth status_flag" ;
@@ -86,7 +86,7 @@ variables:
 		lat:valid_min = -90. ;
 	byte lat_qc(time) ;
 		lat_qc:_FillValue = -127b ;
-		lat_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		lat_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		lat_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		lat_qc:long_name = "lat Quality Flag" ;
 		lat_qc:standard_name = "lat status_flag" ;
@@ -110,7 +110,7 @@ variables:
 		lon:valid_min = -180. ;
 	byte lon_qc(time) ;
 		lon_qc:_FillValue = -127b ;
-		lon_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		lon_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		lon_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		lon_qc:long_name = "lon Quality Flag" ;
 		lon_qc:standard_name = "lon status_flag" ;
@@ -136,7 +136,7 @@ variables:
 		pressure:valid_min = 0 ;
 	byte pressure_qc(time) ;
 		pressure_qc:_FillValue = -127b ;
-		pressure_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		pressure_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		pressure_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		pressure_qc:long_name = "pressure Quality Flag" ;
 		pressure_qc:standard_name = "pressure status_flag" ;
@@ -160,7 +160,7 @@ variables:
 		conductivity:valid_min = 0. ;
 	byte conductivity_qc(time) ;
 		conductivity_qc:_FillValue = -127b ;
-		conductivity_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		conductivity_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		conductivity_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		conductivity_qc:long_name = "conductivity Quality Flag" ;
 		conductivity_qc:standard_name = "conductivity status_flag" ;
@@ -181,7 +181,7 @@ variables:
 		density:valid_min = 1015. ;
 	byte density_qc(time) ;
 		density_qc:_FillValue = -127b ;
-		density_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		density_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		density_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		density_qc:long_name = "density Quality Flag" ;
 		density_qc:standard_name = "density status_flag" ;
@@ -202,7 +202,7 @@ variables:
 		salinity:valid_min = 0. ;
 	byte salinity_qc(time) ;
 		salinity_qc:_FillValue = -127b ;
-		salinity_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		salinity_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		salinity_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		salinity_qc:long_name = "salinity Quality Flag" ;
 		salinity_qc:standard_name = "salinity status_flag" ;
@@ -226,7 +226,7 @@ variables:
 		temperature:valid_min = -5. ;
 	byte temperature_qc(time) ;
 		temperature_qc:_FillValue = -127b ;
-		temperature_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		temperature_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		temperature_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		temperature_qc:long_name = "temperature Quality Flag" ;
 		temperature_qc:standard_name = "temperature status_flag" ;
@@ -267,7 +267,7 @@ variables:
 		u:valid_min = -10. ;
 	byte u_qc(time_uv) ;
 		u_qc:_FillValue = -127b ;
-		u_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		u_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		u_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		u_qc:long_name = "u Quality Flag" ;
 		u_qc:standard_name = "u status_flag" ;
@@ -286,7 +286,7 @@ variables:
 		v:valid_min = -10. ;
 	byte v_qc(time_uv) ;
 		v_qc:_FillValue = -127b ;
-		v_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" ;
+		v_qc:flag_meanings = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" ;
 		v_qc:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b ;
 		v_qc:long_name = "v Quality Flag" ;
 		v_qc:standard_name = "v status_flag" ;
@@ -339,7 +339,7 @@ variables:
 		:geospatial_vertical_positive = "down" ;
 		:geospatial_vertical_resolution = "point" ;
 		:geospatial_vertical_units = "meters" ;
-		:history = "Created on Wed Aug  7 07:27:21 2013" ;
+		:history = "Created on Wed Aug 28 10:09:36 2013" ;
 		:id = "ru29-20130507T211956" ;
 		:institution = "Institute of Marine & Coastal Sciences, Rutgers University" ;
 		:keywords = "Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity" ;

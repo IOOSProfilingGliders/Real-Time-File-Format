@@ -31,7 +31,7 @@
   <attribute name="geospatial_vertical_positive" value="down" />
   <attribute name="geospatial_vertical_resolution" value="point" />
   <attribute name="geospatial_vertical_units" value="meters" />
-  <attribute name="history" value="Created on Wed Aug  7 07:27:21 2013" />
+  <attribute name="history" value="Created on Wed Aug 28 10:09:36 2013" />
   <attribute name="id" value="ru29-20130507T211956" />
   <attribute name="institution" value="Institute of Marine &amp; Coastal Sciences, Rutgers University" />
   <attribute name="keywords" value="Oceans &gt; Ocean Pressure &gt; Water Pressure, Oceans &gt; Ocean Temperature &gt; Water Temperature, Oceans &gt; Salinity/Density &gt; Conductivity, Oceans &gt; Salinity/Density &gt; Density, Oceans &gt; Salinity/Density &gt; Salinity" />
@@ -64,7 +64,7 @@
   </variable>
   <variable name="time_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="time Quality Flag" />
     <attribute name="standard_name" value="time status_flag" />
@@ -118,7 +118,7 @@
   </variable>
   <variable name="depth_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="depth Quality Flag" />
     <attribute name="standard_name" value="depth status_flag" />
@@ -144,7 +144,7 @@
   </variable>
   <variable name="lat_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="lat Quality Flag" />
     <attribute name="standard_name" value="lat status_flag" />
@@ -170,7 +170,7 @@
   </variable>
   <variable name="lon_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="lon Quality Flag" />
     <attribute name="standard_name" value="lon status_flag" />
@@ -198,7 +198,7 @@
   </variable>
   <variable name="pressure_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="pressure Quality Flag" />
     <attribute name="standard_name" value="pressure status_flag" />
@@ -224,7 +224,7 @@
   </variable>
   <variable name="conductivity_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="conductivity Quality Flag" />
     <attribute name="standard_name" value="conductivity status_flag" />
@@ -247,7 +247,7 @@
   </variable>
   <variable name="density_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="density Quality Flag" />
     <attribute name="standard_name" value="density status_flag" />
@@ -270,7 +270,7 @@
   </variable>
   <variable name="salinity_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="salinity Quality Flag" />
     <attribute name="standard_name" value="salinity status_flag" />
@@ -296,7 +296,7 @@
   </variable>
   <variable name="temperature_qc" shape="time" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="temperature Quality Flag" />
     <attribute name="standard_name" value="temperature status_flag" />
@@ -341,7 +341,7 @@
   </variable>
   <variable name="u_qc" shape="time_uv" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="u Quality Flag" />
     <attribute name="standard_name" value="u status_flag" />
@@ -362,7 +362,7 @@
   </variable>
   <variable name="v_qc" shape="time_uv" type="byte">
     <attribute name="_FillValue" type="byte" value="-127" />
-    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value" />
+    <attribute name="flag_meanings" value="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value" />
     <attribute name="flag_values" type="byte" value="0 1 2 3 4 5 6 7 8 9" />
     <attribute name="long_name" value="v Quality Flag" />
     <attribute name="standard_name" value="v status_flag" />
