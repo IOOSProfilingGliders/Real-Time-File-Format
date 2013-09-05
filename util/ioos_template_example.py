@@ -147,7 +147,7 @@ for k in sorted(global_attributes.keys()):
 # Create array of unsigned 8-bit integers to use for _qc flag values
 QC_FLAGS = np.array(range(0,10), 'int8');
 # Meanings of QC_FLAGS
-QC_FLAG_MEANINGS = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value";
+QC_FLAG_MEANINGS = "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used not_used interpolated_value missing_value";
 
 # Variable Definitions
 # ----------------------------------------------------------------------------
