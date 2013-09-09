@@ -121,15 +121,15 @@ global_attributes = {
   'keywords' : 'Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity',
   'keywords_vocabulary' : 'GCMD Science Keywords',
   'license' : 'This data may be redistributed and used without restriction.',
-  'metadata_link' : '',
+  'metadata_link' : ' ',
   'naming_authority' : 'edu.rutgers.marine',
   'processing_level' : 'Dataset taken from glider native file format',
   'project' : 'Deployment not project based',
   'publisher_email' : 'kerfoot@marine.rutgers.edu',
   'publisher_name' : 'John Kerfoot',
   'publisher_url' : 'http://marine.rutgers.edu/cool/auvs',
-  'references' : '',
-  'sea_name' : 'South Atlantic Ocean',
+  'references' : ' ',
+  'sea_name' : ' ', # http://www.nodc.noaa.gov/General/NODC-Archive/seanamelist.txt
   'standard_name_vocabulary' : 'CF-v25', # TODO: Or, represent using URL e.g. http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/25/
   'source' : 'Observational data from a profiling glider', 
   'summary' : 'The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.',
@@ -167,7 +167,7 @@ atts = {'axis' : "T",
         'standard_name' : 'time',
         'long_name' : 'Time',
         'observation_type' : 'measured',
-        'sensor_name' : '',
+        'sensor_name' : ' ',
        }
 for k in sorted(atts.keys()):
     time.setncattr(k, atts[k])
@@ -322,7 +322,7 @@ atts = {'axis' : 'Z',
         'ancillary_variables' : 'depth_qc',
         'platform' : 'platform',
         'instrument' : 'instrument_ctd',
-        'sensor_name' : '',
+        'sensor_name' : ' ',
        }
 for k in sorted(atts.keys()):
     depth.setncattr(k, atts[k])
@@ -379,14 +379,13 @@ atts = { 'axis' : 'Y',
          'units' : 'degrees_north',
          'standard_name' : 'latitude',
          'long_name' : 'Latitude',
-         'flag_meanings' : '',
          'valid_min' : -90.,
          'valid_max' : 90.,
          'observation_type' : 'measured',
          'ancillary_variables' : 'lat_qc',
          'platform' : 'platform',
          'comment' : 'Some values are linearly interpolated between measured coordinates.  See lat_qc', # kerfoot@marine.rutgers.edu: Should we interpolate missing values and add a comment ?  If so, what do do with 'observation_type' ?
-         'sensor_name' : '',
+         'sensor_name' : ' ',
          'reference' : 'WGS84', # GROOM manual, p16
          'coordinate_reference_frame' : 'urn:ogc:crs:EPSG::4326', # GROOM manual, p16
         }
@@ -442,14 +441,13 @@ atts = { 'axis' : 'X',
          'units' : 'degrees_east',
          'standard_name' : 'longitude',
          'long_name' : 'Longitude',
-         'flag_meanings' : '',
          'valid_min' : -180.,
          'valid_max' : 180.,
          'observation_type' : 'measured',
          'ancillary_variables' : 'lon_qc',
          'platform' : 'platform',
          'comment' : 'Some values are linearly interpolated between measured coordinates.  See lon_qc', # kerfoot@marine.rutgers.edu: Should we interpolate missing values and add a comment ? If so, what to do with 'observation_type' ?
-         'sensor_name' : '',
+         'sensor_name' : ' ',
          'reference' : 'WGS84', # GROOM manual, p16
          'coordinate_reference_frame' : 'urn:ogc:crs:EPSG::4326', # GROOM manual, p16
         }
@@ -515,10 +513,10 @@ atts = {'axis' : 'Z',
         'ancillary_variables' : 'pressure_qc',
         'platform' : 'platform',
         'instrument' : 'instrument_ctd',
-        'accuracy' : '',
-        'precision' : '',
-        'resolution' : '',
-        'sensor_name' : '',
+        'accuracy' : ' ',
+        'precision' : ' ',
+        'resolution' : ' ',
+        'sensor_name' : ' ',
        }
 for k in sorted(atts.keys()):
     pressure.setncattr(k, atts[k])
@@ -579,10 +577,10 @@ atts = { 'units' : 'S m-1',
          'platform' : 'platform',
          'instrument' : 'instrument_ctd',
          'coordinates' : 'lon lat depth time',
-         'accuracy' : '',
-         'precision' : '',
-         'resolution' : '',
-         'sensor_name' : '',
+         'accuracy' : ' ',
+         'precision' : ' ',
+         'resolution' : ' ',
+         'sensor_name' : ' ',
         }
 for k in sorted(atts.keys()):
     conductivity.setncattr(k, atts[k])
@@ -639,7 +637,7 @@ atts = { 'units' : 'kg m-3',
          'platform' : 'platform',
          'instrument' : 'instrument_ctd',
          'coordinates' : 'lon lat depth time',
-         'sensor_name' : '',
+         'sensor_name' : ' ',
         }
 for k in sorted(atts.keys()):
     density.setncattr(k, atts[k])
@@ -696,7 +694,7 @@ atts = { 'units' : '1e-3',
          'platform' : 'platform',
          'instrument' : 'instrument_ctd',
          'coordinates' : 'lon lat depth time',
-         'sensor_name' : '',
+         'sensor_name' : ' ',
         }
 for k in sorted(atts.keys()):
     salinity.setncattr(k, atts[k])
@@ -755,10 +753,10 @@ atts = { 'units' : 'Celsius',
          'platform' : 'platform',
          'instrument' : 'instrument_ctd',
          'coordinates' : 'lon lat depth time',
-         'accuracy' : '',
-         'precision' : '',
-         'resolution' : '',
-         'sensor_name' : '',
+         'accuracy' : ' ',
+         'precision' : ' ',
+         'resolution' : ' ',
+         'sensor_name' : ' ',
         }
 for k in sorted(atts.keys()):
     temperature.setncattr(k, atts[k])
@@ -871,7 +869,7 @@ atts = {'units' : 'm s-1',
         'observation_type' : 'calculated',
         'coordinates' : 'time_uv',
         'platform' : 'platform',
-        'sensor_name' : '',
+        'sensor_name' : ' ',
         'coordinates' : 'lon_uv lat_uv time_uv',
        }
 for k in sorted(atts.keys()):
@@ -927,7 +925,7 @@ atts = {'units' : 'm s-1',
         'observation_type' : 'calculated',
         'coordinates' : 'time_uv',
         'platform' : 'platform',
-        'sensor_name' : '',
+        'sensor_name' : ' ',
         'coordinates' : 'lon_uv lat_uv time_uv',
        }
 for k in sorted(atts.keys()):
@@ -1000,9 +998,9 @@ atts = { 'serial_number' : '0098',
          'long_name' : 'Seabird SBD 41CP Conductivity, Temperature, Depth Sensor',
          'platform' : 'platform',
          'calibration_date' : '2000-01-01', # ISO 8601 date
-         'factory_calibrated' : '',
-         'user_calibrated' : '',
-         'calibration_report' : '',
+         'factory_calibrated' : ' ',
+         'user_calibrated' : ' ',
+         'calibration_report' : ' ',
         }
 for k in sorted(atts.keys()):
     instrument_ctd.setncattr(k, atts[k])
