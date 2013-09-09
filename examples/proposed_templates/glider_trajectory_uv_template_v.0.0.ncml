@@ -31,21 +31,21 @@
   <attribute name="geospatial_vertical_positive" value="down" />
   <attribute name="geospatial_vertical_resolution" value="point" />
   <attribute name="geospatial_vertical_units" value="meters" />
-  <attribute name="history" value="Created on Wed Aug 28 10:09:36 2013" />
+  <attribute name="history" value="Created on Mon Sep  9 15:37:33 2013" />
   <attribute name="id" value="ru29-20130507T211956" />
   <attribute name="institution" value="Institute of Marine &amp; Coastal Sciences, Rutgers University" />
   <attribute name="keywords" value="Oceans &gt; Ocean Pressure &gt; Water Pressure, Oceans &gt; Ocean Temperature &gt; Water Temperature, Oceans &gt; Salinity/Density &gt; Conductivity, Oceans &gt; Salinity/Density &gt; Density, Oceans &gt; Salinity/Density &gt; Salinity" />
   <attribute name="keywords_vocabulary" value="GCMD Science Keywords" />
   <attribute name="license" value="This data may be redistributed and used without restriction." />
-  <attribute name="metadata_link" value="" />
+  <attribute name="metadata_link" value=" " />
   <attribute name="naming_authority" value="edu.rutgers.marine" />
   <attribute name="processing_level" value="Dataset taken from glider native file format" />
   <attribute name="project" value="Deployment not project based" />
   <attribute name="publisher_email" value="kerfoot@marine.rutgers.edu" />
   <attribute name="publisher_name" value="John Kerfoot" />
   <attribute name="publisher_url" value="http://marine.rutgers.edu/cool/auvs" />
-  <attribute name="references" value="" />
-  <attribute name="sea_name" value="South Atlantic Ocean" />
+  <attribute name="references" value=" " />
+  <attribute name="sea_name" value=" " />
   <attribute name="source" value="Observational data from a profiling glider" />
   <attribute name="standard_name_vocabulary" value="CF-v25" />
   <attribute name="summary" value="The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world's The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA." />
@@ -58,7 +58,7 @@
     <attribute name="calendar" value="gregorian" />
     <attribute name="long_name" value="Time" />
     <attribute name="observation_type" value="measured" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="time" />
     <attribute name="units" value="seconds since 1970-01-01 00:00:00 UTC" />
   </variable>
@@ -110,7 +110,7 @@
     <attribute name="platform" value="platform" />
     <attribute name="positive" value="down" />
     <attribute name="reference_datum" value="sea-surface" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="depth" />
     <attribute name="units" value="meters" />
     <attribute name="valid_max" type="int" value="2000" />
@@ -131,12 +131,11 @@
     <attribute name="axis" value="Y" />
     <attribute name="comment" value="Some values are linearly interpolated between measured coordinates.  See lat_qc" />
     <attribute name="coordinate_reference_frame" value="urn:ogc:crs:EPSG::4326" />
-    <attribute name="flag_meanings" value="" />
     <attribute name="long_name" value="Latitude" />
     <attribute name="observation_type" value="measured" />
     <attribute name="platform" value="platform" />
     <attribute name="reference" value="WGS84" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="latitude" />
     <attribute name="units" value="degrees_north" />
     <attribute name="valid_max" type="double" value="90." />
@@ -157,12 +156,11 @@
     <attribute name="axis" value="X" />
     <attribute name="comment" value="Some values are linearly interpolated between measured coordinates.  See lon_qc" />
     <attribute name="coordinate_reference_frame" value="urn:ogc:crs:EPSG::4326" />
-    <attribute name="flag_meanings" value="" />
     <attribute name="long_name" value="Longitude" />
     <attribute name="observation_type" value="measured" />
     <attribute name="platform" value="platform" />
     <attribute name="reference" value="WGS84" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="longitude" />
     <attribute name="units" value="degrees_east" />
     <attribute name="valid_max" type="double" value="180." />
@@ -179,7 +177,7 @@
   </variable>
   <variable name="pressure" shape="time" type="double">
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
-    <attribute name="accuracy" value="" />
+    <attribute name="accuracy" value=" " />
     <attribute name="ancillary_variables" value="pressure_qc" />
     <attribute name="axis" value="Z" />
     <attribute name="instrument" value="instrument_ctd" />
@@ -187,10 +185,10 @@
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
     <attribute name="positive" value="down" />
-    <attribute name="precision" value="" />
+    <attribute name="precision" value=" " />
     <attribute name="reference_datum" value="sea-surface" />
-    <attribute name="resolution" value="" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="resolution" value=" " />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="pressure" />
     <attribute name="units" value="dbar" />
     <attribute name="valid_max" type="int" value="2000" />
@@ -207,16 +205,16 @@
   </variable>
   <variable name="conductivity" shape="time" type="double">
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
-    <attribute name="accuracy" value="" />
+    <attribute name="accuracy" value=" " />
     <attribute name="ancillary_variables" value="conductivity_qc" />
     <attribute name="coordinates" value="lon lat depth time" />
     <attribute name="instrument" value="instrument_ctd" />
     <attribute name="long_name" value="Conductivity" />
     <attribute name="observation_type" value="measured" />
     <attribute name="platform" value="platform" />
-    <attribute name="precision" value="" />
-    <attribute name="resolution" value="" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="precision" value=" " />
+    <attribute name="resolution" value=" " />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="sea_water_electrical_conductivity" />
     <attribute name="units" value="S m-1" />
     <attribute name="valid_max" type="double" value="10." />
@@ -239,7 +237,7 @@
     <attribute name="long_name" value="Density" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="sea_water_density" />
     <attribute name="units" value="kg m-3" />
     <attribute name="valid_max" type="double" value="1040." />
@@ -262,7 +260,7 @@
     <attribute name="long_name" value="Salinity" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="sea_water_salinity" />
     <attribute name="units" value="1e-3" />
     <attribute name="valid_max" type="double" value="40." />
@@ -279,16 +277,16 @@
   </variable>
   <variable name="temperature" shape="time" type="double">
     <attribute name="_FillValue" type="double" value="9.96920996838687e+3" />
-    <attribute name="accuracy" value="" />
+    <attribute name="accuracy" value=" " />
     <attribute name="ancillary_variables" value="temperature_qc" />
     <attribute name="coordinates" value="lon lat depth time" />
     <attribute name="instrument" value="instrument_ctd" />
     <attribute name="long_name" value="Temperature" />
     <attribute name="observation_type" value="measured" />
     <attribute name="platform" value="platform" />
-    <attribute name="precision" value="" />
-    <attribute name="resolution" value="" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="precision" value=" " />
+    <attribute name="resolution" value=" " />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="sea_water_temperature" />
     <attribute name="units" value="Celsius" />
     <attribute name="valid_max" type="double" value="40." />
@@ -333,7 +331,7 @@
     <attribute name="long_name" value="Eastward Sea Water Velocity" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="eastward_sea_water_velocity" />
     <attribute name="units" value="m s-1" />
     <attribute name="valid_max" type="double" value="10." />
@@ -354,7 +352,7 @@
     <attribute name="long_name" value="Northward Sea Water Velocity" />
     <attribute name="observation_type" value="calculated" />
     <attribute name="platform" value="platform" />
-    <attribute name="sensor_name" value="" />
+    <attribute name="sensor_name" value=" " />
     <attribute name="standard_name" value="northward_sea_water_velocity" />
     <attribute name="units" value="m s-1" />
     <attribute name="valid_max" type="double" value="10." />
@@ -379,13 +377,13 @@
   </variable>
   <variable name="instrument_ctd" type="byte">
     <attribute name="calibration_date" value="2000-01-01" />
-    <attribute name="calibration_report" value="" />
+    <attribute name="calibration_report" value=" " />
     <attribute name="comment" value="Slocum Glider ru29" />
-    <attribute name="factory_calibrated" value="" />
+    <attribute name="factory_calibrated" value=" " />
     <attribute name="long_name" value="Seabird SBD 41CP Conductivity, Temperature, Depth Sensor" />
     <attribute name="make_model" value="Seabird SBE 41CP" />
     <attribute name="platform" value="platform" />
     <attribute name="serial_number" value="0098" />
-    <attribute name="user_calibrated" value="" />
+    <attribute name="user_calibrated" value=" " />
   </variable>
 </netcdf>
