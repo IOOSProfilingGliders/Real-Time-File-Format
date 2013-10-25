@@ -132,7 +132,7 @@ global_attributes = {
   'sea_name' : ' ', # http://www.nodc.noaa.gov/General/NODC-Archive/seanamelist.txt
   'standard_name_vocabulary' : 'CF-v25', # TODO: Or, represent using URL e.g. http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/25/
   'source' : 'Observational data from a profiling glider', 
-  'summary' : 'The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world\'s The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.',
+  'summary' : "The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world's ocean The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.",
   'time_coverage_end' : '2013-05-08 07:56 UTC',
   'time_coverage_resolution' : 'point',
   'time_coverage_start' : '2013-05-07 21:19 UTC',
@@ -992,12 +992,12 @@ instrument_ctd = nc.createVariable('instrument_ctd',
 # Dictionary of variable attributes.  Use a dictionary so that we can add the
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
-atts = { 'serial_number' : '0098',
+atts = { 'serial_number' : ' ',
          'make_model' : 'Seabird SBE 41CP',
          'comment' : 'Slocum Glider ru29',
          'long_name' : 'Seabird SBD 41CP Conductivity, Temperature, Depth Sensor',
          'platform' : 'platform',
-         'calibration_date' : '2000-01-01', # ISO 8601 date
+         'calibration_date' : ' ', # ISO 8601 date
          'factory_calibrated' : ' ',
          'user_calibrated' : ' ',
          'calibration_report' : ' ',
