@@ -16,6 +16,8 @@
 #   Added 'flag_meanings' and 'flag_values' attribute values per GROOM spec.
 # 2013-08-06 kerfoot: removed 'flag_meanings' attribute from lat_uv & lon_uv.
 #   Added 'coordinates' attribute and values to lat_uv & lon_uv.
+# 2014-03-04 kerfoot: changed standard_name naming of qc flag variables to
+# conform with NODC recommendations: http://www.nodc.noaa.gov/data/formats/netcdf/
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -409,7 +411,7 @@ lat_qc = nc.createVariable('lat_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'lat Quality Flag',
-         'standard_name' : 'lat status_flag',
+         'standard_name' : 'latitude status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -471,7 +473,7 @@ lon_qc = nc.createVariable('lon_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'lon Quality Flag',
-         'standard_name' : 'lon status_flag',
+         'standard_name' : 'longitude status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -602,7 +604,7 @@ conductivity_qc = nc.createVariable('conductivity_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'conductivity Quality Flag',
-         'standard_name' : 'conductivity status_flag',
+         'standard_name' : 'sea_water_electrical_conductivity status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -659,7 +661,7 @@ density_qc = nc.createVariable('density_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'density Quality Flag',
-         'standard_name' : 'density status_flag',
+         'standard_name' : 'sea_water_density status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -716,7 +718,7 @@ salinity_qc = nc.createVariable('salinity_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'salinity Quality Flag',
-         'standard_name' : 'salinity status_flag',
+         'standard_name' : 'sea_water_salinity status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -778,7 +780,7 @@ temperature_qc = nc.createVariable('temperature_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'temperature Quality Flag',
-         'standard_name' : 'temperature status_flag',
+         'standard_name' : 'sea_water_temperature status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -892,7 +894,7 @@ u_qc = nc.createVariable('u_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'u Quality Flag',
-         'standard_name' : 'u status_flag',
+         'standard_name' : 'eastward_sea_water_velocity status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
@@ -948,7 +950,7 @@ v_qc = nc.createVariable('v_qc',
 # attributes in alphabetical order (not necessary, but makes it easier to find
 # attributes that are in alphabetical order)
 atts = { 'long_name' : 'v Quality Flag',
-         'standard_name' : 'v status_flag',
+         'standard_name' : 'northward_sea_water_velocity status_flag',
          'flag_meanings' : QC_FLAG_MEANINGS,
          'valid_min' : QC_FLAGS[0],
          'valid_max' : QC_FLAGS[-1],
