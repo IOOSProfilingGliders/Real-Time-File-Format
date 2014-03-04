@@ -76,7 +76,7 @@ COMP_LEVEL = 1
 
 # Name of output file (leave v.0.0 pending release of accepted spec):
 # kerfoot@marine.rutgers.edu
-nc = Dataset('./glider_trajectory_uv_template_v.0.0.nc',
+nc = Dataset('./glider_trajectory_uv_template_v.1.0.nc',
              'w',
              format='NETCDF4_CLASSIC')
 
