@@ -1,23 +1,8 @@
-# 2013 derrick.snowden@noaa.gov: initial version of python script for creating
-#   IOOS glider NetCDF template.
-# 2013-07-19 kerfoot@marine.rutgers.edu: modified script to adhere to most
-#   recent version of CDL template:
-#     - creation of variables and addition of recommended variable attributes
-#     - variable attributes are added as dictionary items so that they can be
-#       sorted and added alphabetically.
-# 2013-07-22 dsnowden: modified script to include github issues where appropriate 
-#   and to resolve several issues.
-# 2013-07-30 kerfoot: mods to trajectory variable, moved accuracy, precision,
-#   resolution attributes from the instrument_ctd variable to the appropriate
-#   data variables.
-# 2013-08-02 kerfoot: added lat_uv, lon_uv variables, 'sensor_name' attribute
-#   to applicable variables.  Added 'reference' and
-#   'coordinate_reference_frame' attributes to lat & lon per GROOM spec.
-#   Added 'flag_meanings' and 'flag_values' attribute values per GROOM spec.
-# 2013-08-06 kerfoot: removed 'flag_meanings' attribute from lat_uv & lon_uv.
-#   Added 'coordinates' attribute and values to lat_uv & lon_uv.
-# 2014-03-04 kerfoot: changed standard_name naming of qc flag variables to
-# conform with NODC recommendations: http://www.nodc.noaa.gov/data/formats/netcdf/
+# This template is used to generate an empty (no data values) .nc file.  The
+# .nc file may then be dumped to .cdl and .ncml.  A generic filename is used
+# for the destination file.  Files containing actual glider data should follow
+# the file naming conventions at:
+# https://github.com/IOOSProfilingGliders/Real-Time-File-Format/wiki/Real-Time-File-Description#file-naming-convention
 #
 # Script to create example glider trajectory file.
 # DIMENSIONS (SIZE):
@@ -56,12 +41,6 @@
 #   lon_uv(time_uv): double
 #   platform(nodim)
 #   instrument_ctd(nodim)
-#
-# This template is used to generate an empty (no data values) .nc file.  The
-# .nc file may then be dumped to .cdl and .ncml.  A generic filename is used
-# for the destination file.  Files containing actual glider data should follow
-# the file naming conventions at:
-# https://github.com/IOOSProfilingGliders/Real-Time-File-Format/wiki/Real-Time-File-Description#file-naming-convention
 
 import numpy as np
 from datetime import datetime, timedelta
@@ -74,8 +53,7 @@ import time as t
 # result)
 COMP_LEVEL = 1
 
-# Name of output file (leave v.0.0 pending release of accepted spec):
-# kerfoot@marine.rutgers.edu
+# Name of output file
 nc = Dataset('./glider_trajectory_uv_template_v.1.0.nc',
              'w',
              format='NETCDF4_CLASSIC')
@@ -86,24 +64,32 @@ trajectory= nc.createDimension('trajectory', 1)
 time_uv= nc.createDimension('time_uv',1)
 
 # Global Attributes
-# 2013-07-22 kerfoot@marine.rutgers.edu: sync'd with github wiki global
-# attribute list.  Didn't resolve any DS comments/TODOs
+# 2014-03-14: kerfoot@marine.rutgers.edu:
+# The following attributes are mandatory in the EGO spec, but currently are
+# not included in this spec:
+#   data_type: 'EGO glider time-series data'
+#   platform_code: UNIQUE glider code within the EGO project
+#   date_update: we use date_modified
+#
+
+createTs = t.strftime('%Y-%m-%dT%H:%M:%SZ')
+
 global_attributes = {
   'Conventions' : 'CF-1.6',
   'Metadata_Conventions' : 'Unidata Dataset Discovery v1.0', # TODO: A change has been proposed to ACDD.  Use this for now.
   'acknowledgment' : 'This deployment partially supported by ...', #
   'cdm_data_type' : 'Trajectory',
-  'comment' : 'This file is intended to be used as a template only.  Data is not to be used for scientific purposes.',
+  'comment' : 'Data is not to be used for scientific purposes.',
   'contributor_name' : 'Scott Glenn, Oscar Schofield, John Kerfoot',
   'contributor_role' : 'Principal Investigator, Principal Investigator, Data Manager',
   'creator_email' : 'kerfoot@marine.rutgers.edu',
   'creator_name' : 'John Kerfoot',
   'creator_url' : 'http://marine.rutgers.edu/cool/auvs',
-  'date_created' : '2013-05-08 14:45 UTC',
-  'date_issued' : '2013-05-08 14:45 UTC',
-  'date_modified' : '2013-05-08 14:45 UTC',
+  'date_created' : createTs,
+  'date_issued' : createTs,
+  'date_modified' : createTs,
   'featureType' : 'trajectory',
-  'format_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v0.0', # NOTE: Changed from file_version for conformance with GROOM.
+  'format_version' : 'IOOS_Glider_NetCDF_Trajectory_Template_v1.0', # NOTE: Changed from file_version for conformance with GROOM.
   'geospatial_lat_max' : -15.88833,
   'geospatial_lat_min' : -15.9445416666667,
   'geospatial_lat_resolution' : 'point',
@@ -117,7 +103,7 @@ global_attributes = {
   'geospatial_vertical_positive' : 'down',  
   'geospatial_vertical_resolution' : 'point',
   'geospatial_vertical_units' : 'meters',
-  'history' : 'Created on ' + t.ctime(t.time()),
+  'history' : 'Created on ' + createTs,
   'id' : 'ru29-20130507T211956',
   'institution' : 'Institute of Marine & Coastal Sciences, Rutgers University',
   'keywords' : 'Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature > Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans > Salinity/Density > Density, Oceans > Salinity/Density > Salinity',
@@ -135,9 +121,9 @@ global_attributes = {
   'standard_name_vocabulary' : 'CF-v25', # TODO: Or, represent using URL e.g. http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/25/
   'source' : 'Observational data from a profiling glider', 
   'summary' : "The Rutgers University Coastal Ocean Observation Lab has deployed autonomous underwater gliders around the world since 1990. Gliders are small, free-swimming, unmanned vehicles that use changes in buoyancy to move vertically and horizontally through the water column in a saw-tooth pattern. They are deployed for days to several months and gather detailed information about the physical, chemical and biological processes of the world's ocean The Slocum glider was designed and oceans. built by Teledyne Webb Research Corporation, Falmouth, MA, USA.",
-  'time_coverage_end' : '2013-05-08 07:56 UTC',
+  'time_coverage_end' : '2013-05-08T07:56:00Z',
   'time_coverage_resolution' : 'point',
-  'time_coverage_start' : '2013-05-07 21:19 UTC',
+  'time_coverage_start' : '2013-05-07T21:19:00Z',
   'title' : 'Slocum Glider Dataset',
 }
 # Dictionary of global file attributes.  Use a dictionary so that we can add the
@@ -165,7 +151,7 @@ time = nc.createVariable('time',
 # attributes that are in alphabetical order)
 atts = {'axis' : "T",
         'calendar' : 'gregorian',
-        'units' : 'seconds since 1970-01-01 00:00:00 UTC',
+        'units' : 'seconds since 1970-01-01T00:00:00Z',
         'standard_name' : 'time',
         'long_name' : 'Time',
         'observation_type' : 'measured',
@@ -211,7 +197,7 @@ time_uv = nc.createVariable('time_uv',
 # attributes that are in alphabetical order)
 atts = {'axis' : "T",
         'calendar' : 'gregorian',
-        'units' : 'seconds since 1970-01-01 00:00:00 UTC',
+        'units' : 'seconds since 1970-01-01T00:00:00Z',
         'standard_name' : 'time',
         'long_name' : 'Approximate time midpoint of each segment',
         'observation_type' : 'estimated',
